@@ -5,7 +5,7 @@ import SubscribedToWindowSize from './SubscribedToWindowSize';
 const App = () => {
   return (
     <WindowSize>
-      <SubscribedToWindowSize />
+      <SubscribedToWindowSize passedProps="hi" />
     </WindowSize>
   );
 };

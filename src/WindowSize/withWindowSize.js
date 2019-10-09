@@ -2,12 +2,19 @@ import React from 'react';
 import WindowSizeContext from './context';
 
 const withWindowSize = (PassedComponent) => {
-  const WindowSizeWrap = () => {
+  const WindowSizeWrap = (props) => {
     return (
       <WindowSizeContext.Consumer>
-        {windowSizeContext => (
-          <PassedComponent {...{ ...windowSizeContext }} />
-        )}
+        {(windowSizeContext) => {
+          return (
+            <PassedComponent
+              {...{
+                ...props,
+                ...windowSizeContext,
+              }}
+            />
+          );
+        }}
       </WindowSizeContext.Consumer>
     );
   };
