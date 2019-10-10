@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { throttle as lodashThrottle } from 'lodash';
 import WindowSizeContext from './context';
 
-class WindowSizeProvider extends Component {
+class WindowInfoProvider extends Component {
   constructor(props) {
     super(props);
     const { throttle } = props;
@@ -11,6 +11,12 @@ class WindowSizeProvider extends Component {
     this.state = {
       windowWidth: 0,
       windowHeight: 0,
+      breakpoints: {
+        tinyBreak: false,
+        smallBreak: false,
+        midBreak: false,
+        largeBreak: false,
+      },
     };
 
     this.updateSizesWithThrottle = lodashThrottle(() => {
@@ -36,9 +42,25 @@ class WindowSizeProvider extends Component {
   }
 
   updateSizes = () => {
+    const {
+      tinyBreakpoint,
+      smallBreakpoint,
+      midBreakpoint,
+      largeBreakpoint,
+    } = this.props;
+
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+
     this.setState({
-      windowHeight: window.innerHeight,
-      windowWidth: window.innerWidth,
+      windowHeight,
+      windowWidth,
+      breakpoints: {
+        tinyBreak: windowWidth <= tinyBreakpoint,
+        smallBreak: windowWidth <= smallBreakpoint,
+        midBreak: windowWidth <= midBreakpoint,
+        largeBreak: windowWidth <= largeBreakpoint,
+      },
     });
   }
 
@@ -53,13 +75,21 @@ class WindowSizeProvider extends Component {
   }
 }
 
-WindowSizeProvider.defaultProps = {
+WindowInfoProvider.defaultProps = {
   throttle: 400,
+  tinyBreakpoint: undefined,
+  smallBreakpoint: undefined,
+  midBreakpoint: undefined,
+  largeBreakpoint: undefined,
 };
 
-WindowSizeProvider.propTypes = {
+WindowInfoProvider.propTypes = {
   children: PropTypes.node.isRequired,
   throttle: PropTypes.number,
+  tinyBreakpoint: PropTypes.number,
+  smallBreakpoint: PropTypes.number,
+  midBreakpoint: PropTypes.number,
+  largeBreakpoint: PropTypes.number,
 };
 
-export default WindowSizeProvider;
+export default WindowInfoProvider;

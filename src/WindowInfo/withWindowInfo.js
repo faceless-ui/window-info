@@ -1,10 +1,10 @@
 import React from 'react';
-import WindowSizeContext from './context';
+import WindowInfoContext from './context';
 
-const withWindowSize = (PassedComponent) => {
-  const WindowSizeWrap = (props) => {
+const withWindowInfo = (PassedComponent) => {
+  const WindowInfoWrap = (props) => {
     return (
-      <WindowSizeContext.Consumer>
+      <WindowInfoContext.Consumer>
         {(context) => {
           return (
             <PassedComponent
@@ -15,10 +15,10 @@ const withWindowSize = (PassedComponent) => {
             />
           );
         }}
-      </WindowSizeContext.Consumer>
+      </WindowInfoContext.Consumer>
     );
   };
-  return WindowSizeWrap;
+  return WindowInfoWrap;
 };
 
-export default withWindowSize;
+export default withWindowInfo;
