@@ -1,11 +1,15 @@
 import React from 'react';
-import { WindowSize } from '../src';
+import { WindowSize, MousePosition } from '../src';
 import SubscribedToWindowSize from './SubscribedToWindowSize';
+import SubscribedToMousePosition from './SubscribedToMousePosition';
 
 const App = () => {
   return (
-    <WindowSize>
-      <SubscribedToWindowSize passedProps="hi" />
+    <WindowSize throttle={500}>
+      <MousePosition throttle={500}>
+        <SubscribedToWindowSize passedProps="hi" />
+        <SubscribedToMousePosition passedProps="hi" />
+      </MousePosition>
     </WindowSize>
   );
 };

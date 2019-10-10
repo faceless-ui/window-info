@@ -11,6 +11,7 @@ A collection of simple, useful utilities components that provide information and
 The source components in their raw form are found in the `src` directory. These are all batch exported from the top-level `index.js` so that they can be easily accessed via import.
 
 [WindowSize](/src/WindowSize/README.md)
+[MousePosition](/src/MousePosition/README.md)
 
 ## Environment
 

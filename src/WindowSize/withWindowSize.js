@@ -5,12 +5,12 @@ const withWindowSize = (PassedComponent) => {
   const WindowSizeWrap = (props) => {
     return (
       <WindowSizeContext.Consumer>
-        {(windowSizeContext) => {
+        {(context) => {
           return (
             <PassedComponent
               {...{
                 ...props,
-                ...windowSizeContext,
+                ...context,
               }}
             />
           );

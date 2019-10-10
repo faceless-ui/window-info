@@ -25,7 +25,7 @@ class WindowSize extends Component {
   }
 
   componentWillUnmount() {
-    window.addEventListener('resize', this.updateSizesWithThrottle);
+    window.removeEventListener('resize', this.updateSizesWithThrottle);
     window.removeEventListener('orientationchange', this.updateSizesWithTimeout);
   }
 
