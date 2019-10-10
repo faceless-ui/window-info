@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { throttle as lodashThrottle } from 'lodash';
 import MousePositionContext from './context';
 
-class MousePosition extends Component {
+class MousePositionProvider extends Component {
   constructor(props) {
     super(props);
     const { throttle } = props;
@@ -61,13 +61,13 @@ class MousePosition extends Component {
   }
 }
 
-MousePosition.defaultProps = {
+MousePositionProvider.defaultProps = {
   throttle: 400,
 };
 
-MousePosition.propTypes = {
+MousePositionProvider.propTypes = {
   children: PropTypes.node.isRequired,
   throttle: PropTypes.number,
 };
 
-export default MousePosition;
+export default MousePositionProvider;

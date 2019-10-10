@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { throttle as lodashThrottle } from 'lodash';
 import WindowSizeContext from './context';
 
-class WindowSize extends Component {
+class WindowSizeProvider extends Component {
   constructor(props) {
     super(props);
     const { throttle } = props;
@@ -53,13 +53,13 @@ class WindowSize extends Component {
   }
 }
 
-WindowSize.defaultProps = {
+WindowSizeProvider.defaultProps = {
   throttle: 400,
 };
 
-WindowSize.propTypes = {
+WindowSizeProvider.propTypes = {
   children: PropTypes.node.isRequired,
   throttle: PropTypes.number,
 };
 
-export default WindowSize;
+export default WindowSizeProvider;
