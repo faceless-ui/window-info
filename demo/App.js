@@ -2,6 +2,8 @@ import React from 'react';
 import { WindowInfoProvider, MousePositionProvider } from '../src';
 import SubscribedToWindowSize from './SubscribedToWindowInfo';
 import SubscribedToMousePosition from './SubscribedToMousePosition';
+import SubscribedToScrollPosition from './SubscribedToScrollPosition';
+import ScrollPositionProvider from '../src/ScrollPosition/provider';
 
 const App = () => {
   return (
@@ -13,8 +15,11 @@ const App = () => {
       largeBreakpoint={1200}
     >
       <MousePositionProvider throttle={500}>
-        <SubscribedToWindowSize passedProps="hi" />
-        <SubscribedToMousePosition passedProps="hi" />
+        <ScrollPositionProvider throttle={50}>
+          <SubscribedToWindowSize passedProps="hi" />
+          <SubscribedToScrollPosition />
+          <SubscribedToMousePosition passedProps="hi" />
+        </ScrollPositionProvider>
       </MousePositionProvider>
     </WindowInfoProvider>
   );
