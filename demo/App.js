@@ -15,7 +15,7 @@ const App = () => {
       largeBreakpoint={1200}
     >
       <MousePositionProvider throttle={500}>
-        <ScrollPositionProvider throttle={50}>
+        <ScrollPositionProvider throttle={500}>
           <SubscribedToWindowSize passedProps="hi" />
           <SubscribedToScrollPosition />
           <SubscribedToMousePosition passedProps="hi" />

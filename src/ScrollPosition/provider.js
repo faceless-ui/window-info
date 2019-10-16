@@ -4,25 +4,30 @@ import { throttle as lodashThrottle } from 'lodash';
 import ScrollPositionContext from './context';
 
 class ScrollPositionProvider extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { throttle } = props;
+
     this.state = {
       scrollPos: 0,
     };
+
+    this.onScrollWithThrottle = lodashThrottle(() => {
+      this.onScroll();
+    }, throttle);
   }
 
   componentDidMount() {
-    const { throttle } = this.props;
-    window.addEventListener('scroll', this.onScroll, throttle);
+    window.addEventListener('scroll', this.onScrollWithThrottle);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('scroll', this.onScrollWithThrottle);
   }
 
-  onScroll = lodashThrottle(() => {
+  onScroll = () => {
     this.setState({ scrollPos: window.pageYOffset });
-  })
+  }
 
   render() {
     const { children } = this.props;

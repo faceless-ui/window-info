@@ -6,7 +6,7 @@ const SubscribedToScrollPosition = (props) => {
   const { scrollPos } = props;
 
   return (
-    <div style={{ border: '1px solid' }}>
+    <div style={{ border: '1px solid', marginBottom: '50px' }}>
       <p>
         {`scroll position: ${scrollPos}`}
       </p>
