@@ -12,10 +12,11 @@ class WindowInfoProvider extends Component {
       windowWidth: 0,
       windowHeight: 0,
       breakpoints: {
-        tinyBreak: false,
-        smallBreak: false,
-        midBreak: false,
-        largeBreak: false,
+        xs: false,
+        s: false,
+        m: false,
+        l: false,
+        xl: false,
       },
     };
 
@@ -43,10 +44,9 @@ class WindowInfoProvider extends Component {
 
   updateSizes = () => {
     const {
-      tinyBreakpoint,
-      smallBreakpoint,
-      midBreakpoint,
-      largeBreakpoint,
+      breakpoints: {
+        xs, s, m, l, xl,
+      },
     } = this.props;
 
     const windowHeight = window.innerHeight;
@@ -56,10 +56,11 @@ class WindowInfoProvider extends Component {
       windowHeight,
       windowWidth,
       breakpoints: {
-        tinyBreak: windowWidth <= tinyBreakpoint,
-        smallBreak: windowWidth <= smallBreakpoint,
-        midBreak: windowWidth <= midBreakpoint,
-        largeBreak: windowWidth <= largeBreakpoint,
+        xs: windowWidth <= xs,
+        s: windowWidth <= s,
+        m: windowWidth <= m,
+        l: windowWidth <= l,
+        xl: windowWidth <= xl,
       },
     });
   }
@@ -77,19 +78,19 @@ class WindowInfoProvider extends Component {
 
 WindowInfoProvider.defaultProps = {
   throttle: 400,
-  tinyBreakpoint: undefined,
-  smallBreakpoint: undefined,
-  midBreakpoint: undefined,
-  largeBreakpoint: undefined,
+  breakpoints: {},
 };
 
 WindowInfoProvider.propTypes = {
   children: PropTypes.node.isRequired,
   throttle: PropTypes.number,
-  tinyBreakpoint: PropTypes.number,
-  smallBreakpoint: PropTypes.number,
-  midBreakpoint: PropTypes.number,
-  largeBreakpoint: PropTypes.number,
+  breakpoints: PropTypes.shape({
+    xs: PropTypes.number,
+    s: PropTypes.number,
+    m: PropTypes.number,
+    l: PropTypes.number,
+    xl: PropTypes.number,
+  }),
 };
 
 export default WindowInfoProvider;

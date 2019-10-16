@@ -9,10 +9,13 @@ const App = () => {
   return (
     <WindowInfoProvider
       throttle={300}
-      tinyBreakpoint={400}
-      smallBreakpoint={600}
-      midBreakpoint={850}
-      largeBreakpoint={1200}
+      breakpoints={{
+        xs: 350,
+        s: 576,
+        m: 768,
+        l: 992,
+        xl: 1200,
+      }}
     >
       <MousePositionProvider throttle={500}>
         <ScrollPositionProvider throttle={500}>

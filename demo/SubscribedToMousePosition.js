@@ -7,15 +7,17 @@ const SubscribedToMousePosition = (props) => {
 
   return (
     <div style={{ border: '1px solid' }}>
-      <p>
-        {`mouse x position: ${x}`}
-      </p>
-      <p>
-        {`mouse y position: ${y}`}
-      </p>
-      <p>
-        {`mouse is in viewport: ${mouseIsInViewport}`}
-      </p>
+      <code>
+        <p>
+          {`mouse x position: ${x}`}
+        </p>
+        <p>
+          {`mouse y position: ${y}`}
+        </p>
+        <p>
+          {`mouse is in viewport: ${mouseIsInViewport}`}
+        </p>
+      </code>
     </div>
   );
 };

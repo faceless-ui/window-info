@@ -7,33 +7,35 @@ const SubscribedToWindowInfo = (props) => {
     windowWidth,
     windowHeight,
     breakpoints: {
-      tinyBreak,
-      smallBreak,
-      midBreak,
-      largeBreak,
+      xs, s, m, l, xl,
     },
   } = props;
 
   return (
-    <div style={{ border: '1px solid', marginBottom: '50px' }}>
-      <p>
-        {`windowWidth: ${windowWidth}`}
-      </p>
-      <p>
-        {`windowHeight: ${windowHeight}`}
-      </p>
-      <p>
-        {`tinyBreak: ${tinyBreak}`}
-      </p>
-      <p>
-        {`smallBreak: ${smallBreak}`}
-      </p>
-      <p>
-        {`midBreak: ${midBreak}`}
-      </p>
-      <p>
-        {`largeBreak: ${largeBreak}`}
-      </p>
+    <div style={{ border: '1px solid', marginBottom: '10px' }}>
+      <code>
+        <p>
+          {`windowWidth: ${windowWidth}`}
+        </p>
+        <p>
+          {`windowHeight: ${windowHeight}`}
+        </p>
+        <p>
+          {`xs: ${xs}`}
+        </p>
+        <p>
+          {`s: ${s}`}
+        </p>
+        <p>
+          {`m: ${m}`}
+        </p>
+        <p>
+          {`l: ${l}`}
+        </p>
+        <p>
+          {`xl: ${xl}`}
+        </p>
+      </code>
     </div>
   );
 };
@@ -46,10 +48,11 @@ SubscribedToWindowInfo.propTypes = {
   windowWidth: PropTypes.number.isRequired,
   windowHeight: PropTypes.number.isRequired,
   breakpoints: PropTypes.shape({
-    tinyBreak: PropTypes.bool,
-    smallBreak: PropTypes.bool,
-    midBreak: PropTypes.bool,
-    largeBreak: PropTypes.bool,
+    xs: PropTypes.bool,
+    s: PropTypes.bool,
+    m: PropTypes.bool,
+    l: PropTypes.bool,
+    xl: PropTypes.bool,
   }).isRequired,
 };
 
