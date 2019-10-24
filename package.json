@@ -2,7 +2,7 @@
   "name": "react-utilities",
   "version": "1.0.0",
   "main": "dist/build.bundle.js",
-  "repository": "git@github.com:keen-studio/react-utilities.git",
+  "repository": "git@github.com:trbldesign/react-utilities.git",
   "author": "<jacobsfletch@gmail.com>",
   "license": "MIT",
   "scripts": {
