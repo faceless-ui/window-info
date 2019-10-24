@@ -9,7 +9,8 @@ class ScrollPositionProvider extends Component {
     const { throttle } = props;
 
     this.state = {
-      scrollPos: 0,
+      x: 0,
+      y: 0,
     };
 
     this.onScrollWithThrottle = lodashThrottle(() => {
@@ -26,14 +27,23 @@ class ScrollPositionProvider extends Component {
   }
 
   onScroll = () => {
-    this.setState({ scrollPos: window.pageYOffset });
+    this.setState({
+      x: window.pageXOffset,
+      y: window.pageYOffset,
+    });
   }
 
   render() {
     const { children } = this.props;
 
+    const scrollPositionContext = {
+      scrollPos: {
+        ...this.state,
+      },
+    };
+
     return (
-      <ScrollPositionContext.Provider value={{ ...this.state }}>
+      <ScrollPositionContext.Provider value={scrollPositionContext}>
         {children}
       </ScrollPositionContext.Provider>
     );

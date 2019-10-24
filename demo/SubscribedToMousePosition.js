@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import { withMousePosition } from '../src';
 
 const SubscribedToMousePosition = (props) => {
-  const { mouseIsInViewport, mousePos: { x, y } } = props;
+  const {
+    mousePos: {
+      x,
+      y,
+      isInViewport,
+    },
+  } = props;
 
   return (
-    <div style={{ border: '1px solid' }}>
-      <code>
-        <p>
-          {`mouse x position: ${x}`}
-        </p>
-        <p>
-          {`mouse y position: ${y}`}
-        </p>
-        <p>
-          {`mouse is in viewport: ${mouseIsInViewport}`}
-        </p>
-      </code>
-    </div>
+    <code>
+      <p>
+        {`mouse x position: ${x}`}
+      </p>
+      <p>
+        {`mouse y position: ${y}`}
+      </p>
+      <p>
+        {`mouse is in viewport: ${isInViewport}`}
+      </p>
+    </code>
   );
 };
 
@@ -30,8 +34,8 @@ SubscribedToMousePosition.propTypes = {
   mousePos: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
+    isInViewport: PropTypes.bool,
   }).isRequired,
-  mouseIsInViewport: PropTypes.bool.isRequired,
 };
 
 export default withMousePosition(SubscribedToMousePosition);

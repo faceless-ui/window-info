@@ -9,8 +9,8 @@ class WindowInfoProvider extends Component {
     const { throttle } = props;
 
     this.state = {
-      windowWidth: 0,
-      windowHeight: 0,
+      width: 0,
+      height: 0,
       breakpoints: {
         xs: false,
         s: false,
@@ -49,12 +49,12 @@ class WindowInfoProvider extends Component {
       },
     } = this.props;
 
-    const windowHeight = window.innerHeight;
     const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
 
     this.setState({
-      windowHeight,
-      windowWidth,
+      width: windowWidth,
+      height: windowHeight,
       breakpoints: {
         xs: windowWidth <= xs,
         s: windowWidth <= s,
@@ -68,8 +68,14 @@ class WindowInfoProvider extends Component {
   render() {
     const { children } = this.props;
 
+    const windowInfoContext = {
+      windowInfo: {
+        ...this.state,
+      },
+    };
+
     return (
-      <WindowSizeContext.Provider value={{ ...this.state }}>
+      <WindowSizeContext.Provider value={windowInfoContext}>
         {children}
       </WindowSizeContext.Provider>
     );

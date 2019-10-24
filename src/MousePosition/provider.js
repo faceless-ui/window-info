@@ -9,11 +9,9 @@ class MousePositionProvider extends Component {
     const { throttle } = props;
 
     this.state = {
-      mouseIsInViewport: false,
-      mousePos: {
-        x: 0,
-        y: 0,
-      },
+      x: 0,
+      y: 0,
+      isInViewport: false,
     };
 
     this.onMoveWithThrottle = lodashThrottle((e) => {
@@ -34,27 +32,31 @@ class MousePositionProvider extends Component {
   }
 
   onEnter = () => {
-    this.setState({ mouseIsInViewport: true });
+    this.setState({ isInViewport: true });
   }
 
   onLeave = () => {
-    this.setState({ mouseIsInViewport: false });
+    this.setState({ isInViewport: false });
   }
 
   onMove = (e) => {
     this.setState({
-      mousePos: {
-        x: e.clientX,
-        y: e.clientY,
-      },
+      x: e.clientX,
+      y: e.clientY,
     });
   }
 
   render() {
     const { children } = this.props;
 
+    const mousePositionContext = {
+      mousePos: {
+        ...this.state,
+      },
+    };
+
     return (
-      <MousePositionContext.Provider value={{ ...this.state }}>
+      <MousePositionContext.Provider value={mousePositionContext}>
         {children}
       </MousePositionContext.Provider>
     );

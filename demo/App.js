@@ -1,30 +1,42 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { WindowInfoProvider, MousePositionProvider } from '../src';
-import SubscribedToWindowSize from './SubscribedToWindowInfo';
+import SubscribedToWindowInfo from './SubscribedToWindowInfo';
 import SubscribedToMousePosition from './SubscribedToMousePosition';
 import SubscribedToScrollPosition from './SubscribedToScrollPosition';
 import ScrollPositionProvider from '../src/ScrollPosition/provider';
 
 const App = () => {
   return (
-    <WindowInfoProvider
-      throttle={300}
-      breakpoints={{
-        xs: 350,
-        s: 576,
-        m: 768,
-        l: 992,
-        xl: 1200,
-      }}
-    >
-      <MousePositionProvider throttle={500}>
-        <ScrollPositionProvider throttle={500}>
-          <SubscribedToWindowSize passedProps="hi" />
-          <SubscribedToScrollPosition />
+    <Fragment>
+      <div style={{ border: '1px solid', marginBottom: '10px' }}>
+        <WindowInfoProvider
+          throttle={300}
+          breakpoints={{
+            xs: 350,
+            s: 576,
+            m: 768,
+            l: 992,
+            xl: 1200,
+          }}
+        >
+          <SubscribedToWindowInfo passedProps="hi" />
+        </WindowInfoProvider>
+      </div>
+
+      <div style={{ border: '1px solid', marginBottom: '10px' }}>
+        <MousePositionProvider throttle={500}>
           <SubscribedToMousePosition passedProps="hi" />
+        </MousePositionProvider>
+      </div>
+
+      <div style={{ border: '1px solid', marginBottom: '10px' }}>
+        <ScrollPositionProvider throttle={500}>
+          <SubscribedToScrollPosition />
         </ScrollPositionProvider>
-      </MousePositionProvider>
-    </WindowInfoProvider>
+      </div>
+
+      <div style={{ height: '1000px', width: '2000px' }} />
+    </Fragment>
   );
 };
 

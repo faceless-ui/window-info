@@ -3,21 +3,27 @@ import PropTypes from 'prop-types';
 import { withScrollPosition } from '../src';
 
 const SubscribedToScrollPosition = (props) => {
-  const { scrollPos } = props;
+  const {
+    scrollPos: {
+      x,
+      y,
+    },
+  } = props;
 
   return (
-    <div style={{ border: '1px solid', marginBottom: '10px' }}>
-      <code>
-        <p>
-          {`scroll position: ${scrollPos}`}
-        </p>
-      </code>
-    </div>
+    <code>
+      <p>
+        {`scroll position: { x: ${x}, y: ${y} }`}
+      </p>
+    </code>
   );
 };
 
 SubscribedToScrollPosition.propTypes = {
-  scrollPos: PropTypes.number.isRequired,
+  scrollPos: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }).isRequired,
 };
 
 export default withScrollPosition(SubscribedToScrollPosition);
