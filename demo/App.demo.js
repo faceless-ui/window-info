@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { WindowInfoProvider, MousePositionProvider } from '../src';
-import SubscribedToWindowInfo from './SubscribedToWindowInfo';
-import SubscribedToMousePosition from './SubscribedToMousePosition';
-import SubscribedToScrollPosition from './SubscribedToScrollPosition';
+import WindowInfoDemo from './WindowInfo.demo';
+import MousePositionDemo from './MousePosition.demo';
+import ScrollPositionDemo from './ScrollPosition.demo';
 import ScrollPositionProvider from '../src/ScrollPosition/provider';
 
 const App = () => {
@@ -19,19 +19,19 @@ const App = () => {
             xl: 1200,
           }}
         >
-          <SubscribedToWindowInfo passedProps="hi" />
+          <WindowInfoDemo passedProps="hi" />
         </WindowInfoProvider>
       </div>
 
       <div style={{ border: '1px solid', marginBottom: '10px' }}>
         <MousePositionProvider throttle={500}>
-          <SubscribedToMousePosition passedProps="hi" />
+          <MousePositionDemo passedProps="hi" />
         </MousePositionProvider>
       </div>
 
       <div style={{ border: '1px solid', marginBottom: '10px' }}>
         <ScrollPositionProvider throttle={500}>
-          <SubscribedToScrollPosition />
+          <ScrollPositionDemo />
         </ScrollPositionProvider>
       </div>
 
