@@ -1,62 +1,66 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle as lodashThrottle } from 'lodash';
 import ScrollPositionContext from './context';
 
 class ScrollPositionProvider extends Component {
   constructor(props) {
     super(props);
-    const { throttle } = props;
 
     this.state = {
-      x: 0,
-      y: 0,
+      animationScheduled: false,
+      scrollPos: {
+        x: 0,
+        y: 0,
+      },
     };
-
-    this.onScrollWithThrottle = lodashThrottle(() => {
-      this.onScroll();
-    }, throttle);
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.onScrollWithThrottle);
+    window.addEventListener('scroll', this.requestAnimation);
+    this.updateScrollPos();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScrollWithThrottle);
+    window.removeEventListener('scroll', this.requestAnimation);
   }
 
-  onScroll = () => {
+  updateScrollPos = () => {
+    const { scrollPos } = this.state;
+
     this.setState({
-      x: window.pageXOffset,
-      y: window.pageYOffset,
+      animationScheduled: false,
+      scrollPos: {
+        ...scrollPos,
+        x: window.pageXOffset,
+        y: window.pageYOffset,
+      },
     });
+  };
+
+  requestAnimation = () => {
+    const { animationScheduled } = this.state;
+    if (!animationScheduled) {
+      requestAnimationFrame(this.updateScrollPos);
+      this.setState({ animationScheduled: true });
+    }
   }
 
   render() {
     const { children } = this.props;
-
-    const scrollPositionContext = {
-      scrollPos: {
-        ...this.state,
-      },
-    };
+    const { scrollPos } = this.state;
 
     return (
-      <ScrollPositionContext.Provider value={scrollPositionContext}>
+      <ScrollPositionContext.Provider value={{ scrollPos }}>
         {children}
       </ScrollPositionContext.Provider>
     );
   }
 }
 
-ScrollPositionProvider.defaultProps = {
-  throttle: 40,
-};
+ScrollPositionProvider.defaultProps = {};
 
 ScrollPositionProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  throttle: PropTypes.number,
 };
 
 export default ScrollPositionProvider;

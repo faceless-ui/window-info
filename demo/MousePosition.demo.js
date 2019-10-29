@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withMousePosition } from '../src';
+import { withMousePosition } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
 
 const SubscribedToMousePosition = (props) => {
   const {

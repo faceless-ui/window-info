@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
-import { WindowInfoProvider, MousePositionProvider } from '../src';
+import { WindowInfoProvider, MousePositionProvider, ScrollPositionProvider } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
 import WindowInfoDemo from './WindowInfo.demo';
 import MousePositionDemo from './MousePosition.demo';
 import ScrollPositionDemo from './ScrollPosition.demo';
-import ScrollPositionProvider from '../src/ScrollPosition/provider';
 
 const App = () => {
   return (
     <Fragment>
       <div style={{ border: '1px solid', marginBottom: '10px' }}>
         <WindowInfoProvider
-          throttle={300}
           breakpoints={{
             xs: 350,
             s: 576,
@@ -24,13 +22,13 @@ const App = () => {
       </div>
 
       <div style={{ border: '1px solid', marginBottom: '10px' }}>
-        <MousePositionProvider throttle={500}>
+        <MousePositionProvider>
           <MousePositionDemo passedProps="hi" />
         </MousePositionProvider>
       </div>
 
       <div style={{ border: '1px solid', marginBottom: '10px' }}>
-        <ScrollPositionProvider throttle={500}>
+        <ScrollPositionProvider>
           <ScrollPositionDemo />
         </ScrollPositionProvider>
       </div>

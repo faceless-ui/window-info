@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withScrollPosition } from '../src';
+import { withScrollPosition } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
 
 const SubscribedToScrollPosition = (props) => {
   const {

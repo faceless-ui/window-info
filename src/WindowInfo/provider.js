@@ -1,48 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle as lodashThrottle } from 'lodash';
 import WindowSizeContext from './context';
 
 class WindowInfoProvider extends Component {
   constructor(props) {
     super(props);
-    const { throttle } = props;
 
     this.state = {
-      width: 0,
-      height: 0,
-      breakpoints: {
-        xs: false,
-        s: false,
-        m: false,
-        l: false,
-        xl: false,
+      animationScheduled: false,
+      windowInfo: {
+        width: 0,
+        height: 0,
+        breakpoints: {
+          xs: false,
+          s: false,
+          m: false,
+          l: false,
+          xl: false,
+        },
       },
     };
-
-    this.updateSizesWithThrottle = lodashThrottle(() => {
-      this.updateSizes();
-    }, throttle);
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.updateSizesWithThrottle);
-    window.addEventListener('orientationchange', this.updateSizesWithTimeout);
-    this.updateSizes();
+    window.addEventListener('resize', this.requestAnimation);
+    window.addEventListener('orientationchange', this.updateWindowInfoWithTimeout);
+    this.updateWindowInfo();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateSizesWithThrottle);
-    window.removeEventListener('orientationchange', this.updateSizesWithTimeout);
+    window.removeEventListener('resize', this.requestAnimation);
+    window.removeEventListener('orientationchange', this.updateWindowInfoWithTimeout);
   }
 
-  updateSizesWithTimeout = () => {
+  updateWindowInfoWithTimeout = () => {
     setTimeout(() => {
       this.updateSizes();
     }, 500);
   }
 
-  updateSizes = () => {
+  updateWindowInfo = () => {
     const {
       breakpoints: {
         xs, s, m, l, xl,
@@ -53,29 +50,35 @@ class WindowInfoProvider extends Component {
     const windowHeight = window.innerHeight;
 
     this.setState({
-      width: windowWidth,
-      height: windowHeight,
-      breakpoints: {
-        xs: windowWidth <= xs,
-        s: windowWidth <= s,
-        m: windowWidth <= m,
-        l: windowWidth <= l,
-        xl: windowWidth <= xl,
+      animationScheduled: false,
+      windowInfo: {
+        width: windowWidth,
+        height: windowHeight,
+        breakpoints: {
+          xs: windowWidth <= xs,
+          s: windowWidth <= s,
+          m: windowWidth <= m,
+          l: windowWidth <= l,
+          xl: windowWidth <= xl,
+        },
       },
     });
   }
 
+  requestAnimation = () => {
+    const { animationScheduled } = this.state;
+    if (!animationScheduled) {
+      requestAnimationFrame(this.updateWindowInfo);
+      this.setState({ animationScheduled: true });
+    }
+  }
+
   render() {
     const { children } = this.props;
-
-    const windowInfoContext = {
-      windowInfo: {
-        ...this.state,
-      },
-    };
+    const { windowInfo } = this.state;
 
     return (
-      <WindowSizeContext.Provider value={windowInfoContext}>
+      <WindowSizeContext.Provider value={{ windowInfo }}>
         {children}
       </WindowSizeContext.Provider>
     );
@@ -83,13 +86,11 @@ class WindowInfoProvider extends Component {
 }
 
 WindowInfoProvider.defaultProps = {
-  throttle: 400,
   breakpoints: {},
 };
 
 WindowInfoProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  throttle: PropTypes.number,
   breakpoints: PropTypes.shape({
     xs: PropTypes.number,
     s: PropTypes.number,

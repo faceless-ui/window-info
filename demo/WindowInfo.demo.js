@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withWindowInfo } from '../src';
+import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
 
 const SubscribedToWindowInfo = (props) => {
   const {
