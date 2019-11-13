@@ -1,63 +1,57 @@
-# React Utilities ![Beta](https://img.shields.io/badge/release-alpha-ff4553)
+[![NPM](https://img.shields.io/npm/v/@trbl/react-window-info)](https://www.npmjs.com/@trbl/react-window-info)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@trbl/react-window-info?label=zipped)
+[![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
-## Abstract
+# React Mouse Position
 
-A collection of simple, useful utilities components that provide information and render no DOM of their own.
+The window, not Windows.
 
-## Component Composition
+## Quick Start
 
-```jsx
-  <MousePositionProvider
-    throttle={50}
-  >
-    ...
-  </MousePositionProvider>
+### Installation
 
-  <ScrollPositionProvider
-    throttle={50}
-  >
-    ...
-  </ScrollPositionProvider>
-
-  <WindowInfoProvider
-    throttle={50}
-    breakpoints={{
-      xs: 350,
-      s: 576,
-      m: 768,
-      l: 992,
-      xl: 1200,
-    }}
-  >
-    ...
-  </WindowInfoProvider>
+```bash
+$ yarn add @trbl/react-window-info
 ```
 
-## Component Documentation
+### Compositon
 
-The source components in their raw form are found in the `src` directory. These are all batch exported from the top-level `index.js` so that they can be easily accessed via import.
+```jsx
+  import React from 'react';
+  import { WindowInfoProvider, withWindowInfo } from '@trbl/react-window-info';
 
-  - [MousePositionProvider](/src/MousePosition/README.md)
-  - [withMousePosition](/src/MousePosition/README.md)
-  - [ScrollPositionProvider](/src/ScrollPosition/README.md)
-  - [withScrollPosition](/src/ScrollPosition/README.md)
-  - [WindowInfoProvider](/src/WindowInfo/README.md)
-  - [withWindowInfo](/src/WindowInfo/README.md)
+  const MyComponent = withWindowInfo(() => return <div>My Component</div>);
 
-## Environment
+  const App = () => {
+    return (
+      <WindowInfoProvider>
+        <MyComponent>
+          ...
+        </MyComponent>
+      </WindowInfoProvider>
+    )
+  }
 
-### Distribution
+  export default App;
+```
 
-The entrypoint for the production bundle is `/dist/build.bundle.js`, as defined in `package.json`. Importing this project will return that bundle.
+## Demo
 
-### Compilation and Transpilation
+To demo locally, clone the repo and
 
-Generating this production bundle is defined in `webpack.production.config.js`, one of two custom webpack configurations defined at the top of this repo. It simply processes all of the `.js` files within the `src` directory through the `babel-loader` transpiler and into the `dist` directory.
+```bash
+$ yarn install
+$ npm run dev
+$ open http://localhost:3000
+```
 
-  - tldr: `npm run build`
+## Documentation
 
-### Development
+All available props can be found via the references below:
 
-The other webpack configuration is `webpack.development.config.js` which does a few things differently -- compilation happens from the `demo` directory as opposed to the `src` directory. It then will spin up `webpack-dev-server`, which serves a compiled and transpiled build _in memory_, with hot-reloading enabled.
+  - [WindowInfoProvider](/src/WindowInfoProvider/README.md)
+  - [withWindowInfo](/src/withWindowInfo/README.md)
 
-  - tldr: `npm run dev`
+## License
+
+[MIT](https://github.com/trouble/react-window-info/blob/master/LICENSE) Copyright (c) TRBL, LLC

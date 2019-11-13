@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import WindowSizeContext from './context';
+import WindowInfoContext from './context';
 
 class WindowInfoProvider extends Component {
   constructor(props) {
@@ -78,9 +78,9 @@ class WindowInfoProvider extends Component {
     const { windowInfo } = this.state;
 
     return (
-      <WindowSizeContext.Provider value={{ windowInfo }}>
+      <WindowInfoContext.Provider value={{ windowInfo }}>
         {children}
-      </WindowSizeContext.Provider>
+      </WindowInfoContext.Provider>
     );
   }
 }

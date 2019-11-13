@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
+import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const SubscribedToWindowInfo = (props) => {
+const WindowInfoDemo = (props) => {
   const {
     windowInfo: {
       width,
@@ -15,36 +15,30 @@ const SubscribedToWindowInfo = (props) => {
 
   return (
     <code>
-      <p>
+      <pre>
         {`windowWidth: ${width}`}
-      </p>
-      <p>
+        <br />
         {`windowHeight: ${height}`}
-      </p>
-      <p>
+        <br />
         {`xs: ${xs}`}
-      </p>
-      <p>
+        <br />
         {`s: ${s}`}
-      </p>
-      <p>
+        <br />
         {`m: ${m}`}
-      </p>
-      <p>
+        <br />
         {`l: ${l}`}
-      </p>
-      <p>
+        <br />
         {`xl: ${xl}`}
-      </p>
+      </pre>
     </code>
   );
 };
 
-SubscribedToWindowInfo.defaultProps = {
+WindowInfoDemo.defaultProps = {
 
 };
 
-SubscribedToWindowInfo.propTypes = {
+WindowInfoDemo.propTypes = {
   windowInfo: PropTypes.shape({
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -58,4 +52,4 @@ SubscribedToWindowInfo.propTypes = {
   }).isRequired,
 };
 
-export default withWindowInfo(SubscribedToWindowInfo);
+export default withWindowInfo(WindowInfoDemo);
