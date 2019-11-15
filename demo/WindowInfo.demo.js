@@ -10,6 +10,7 @@ const WindowInfoDemo = (props) => {
       breakpoints: {
         xs, s, m, l, xl,
       },
+      count,
     },
   } = props;
 
@@ -29,6 +30,8 @@ const WindowInfoDemo = (props) => {
         {`l: ${l}`}
         <br />
         {`xl: ${xl}`}
+        <br />
+        {`count: ${count}`}
       </pre>
     </code>
   );
@@ -49,6 +52,8 @@ WindowInfoDemo.propTypes = {
       l: PropTypes.bool,
       xl: PropTypes.bool,
     }),
+    orientation: PropTypes.number,
+    count: PropTypes.number,
   }).isRequired,
 };
 

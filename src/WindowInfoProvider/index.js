@@ -19,6 +19,7 @@ class WindowInfoProvider extends Component {
           xl: false,
         },
       },
+      count: 0,
     };
   }
 
@@ -66,19 +67,26 @@ class WindowInfoProvider extends Component {
   }
 
   requestAnimation = () => {
-    const { animationScheduled } = this.state;
+    const { animationScheduled, count } = this.state;
     if (!animationScheduled) {
       requestAnimationFrame(this.updateWindowInfo);
-      this.setState({ animationScheduled: true });
+      this.setState({ animationScheduled: true, count: count + 1 });
     }
   }
 
   render() {
     const { children } = this.props;
-    const { windowInfo } = this.state;
+    const { windowInfo, count } = this.state;
 
     return (
-      <WindowInfoContext.Provider value={{ windowInfo }}>
+      <WindowInfoContext.Provider
+        value={{
+          windowInfo: {
+            ...windowInfo,
+            count,
+          },
+        }}
+      >
         {children}
       </WindowInfoContext.Provider>
     );

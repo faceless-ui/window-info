@@ -2,7 +2,7 @@
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@trbl/react-window-info?label=zipped)
 [![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
-# React Mouse Position
+# React Window Info
 
 The window, not Windows.
 
