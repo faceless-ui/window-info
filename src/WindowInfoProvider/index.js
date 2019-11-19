@@ -8,16 +8,14 @@ class WindowInfoProvider extends Component {
 
     this.state = {
       animationScheduled: false,
-      windowInfo: {
-        width: 0,
-        height: 0,
-        breakpoints: {
-          xs: false,
-          s: false,
-          m: false,
-          l: false,
-          xl: false,
-        },
+      width: 0,
+      height: 0,
+      breakpoints: {
+        xs: false,
+        s: false,
+        m: false,
+        l: false,
+        xl: false,
       },
       count: 0,
     };
@@ -52,16 +50,14 @@ class WindowInfoProvider extends Component {
 
     this.setState({
       animationScheduled: false,
-      windowInfo: {
-        width: windowWidth,
-        height: windowHeight,
-        breakpoints: {
-          xs: windowWidth <= xs,
-          s: windowWidth <= s,
-          m: windowWidth <= m,
-          l: windowWidth <= l,
-          xl: windowWidth <= xl,
-        },
+      width: windowWidth,
+      height: windowHeight,
+      breakpoints: {
+        xs: windowWidth <= xs,
+        s: windowWidth <= s,
+        m: windowWidth <= m,
+        l: windowWidth <= l,
+        xl: windowWidth <= xl,
       },
     });
   }
@@ -76,13 +72,20 @@ class WindowInfoProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const { windowInfo, count } = this.state;
+    const {
+      width,
+      height,
+      breakpoints,
+      count,
+    } = this.state;
 
     return (
       <WindowInfoContext.Provider
         value={{
           windowInfo: {
-            ...windowInfo,
+            width,
+            height,
+            breakpoints,
             count,
           },
         }}
