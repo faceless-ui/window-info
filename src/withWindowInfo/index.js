@@ -1,21 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import WindowInfoContext from '../WindowInfoProvider/context';
 
 const withWindowInfo = (PassedComponent) => {
   const WindowInfoWrap = (props) => {
+    const context = useContext(WindowInfoContext);
     return (
-      <WindowInfoContext.Consumer>
-        {(context) => {
-          return (
-            <PassedComponent
-              {...{
-                ...props,
-                ...context,
-              }}
-            />
-          );
+      <PassedComponent
+        {...{
+          ...props,
+          ...context,
         }}
-      </WindowInfoContext.Consumer>
+      />
     );
   };
   return WindowInfoWrap;
