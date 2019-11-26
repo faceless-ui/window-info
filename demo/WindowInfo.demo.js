@@ -10,28 +10,46 @@ const WindowInfoDemo = (props) => {
       breakpoints: {
         xs, s, m, l, xl,
       },
-      count,
+      eventsFired,
     },
   } = props;
 
   return (
     <code>
       <pre>
-        {`windowWidth: ${width}`}
+        {'scrollInfo: {'}
         <br />
-        {`windowHeight: ${height}`}
+        &emsp;
+        {`windowWidth: ${width},`}
         <br />
-        {`xs: ${xs}`}
+        &emsp;
+        {`windowHeight: ${height},`}
         <br />
-        {`s: ${s}`}
+        &emsp;
+        {'breakpoints: {'}
         <br />
-        {`m: ${m}`}
+        &emsp;&emsp;
+        {`xs: ${xs},`}
         <br />
-        {`l: ${l}`}
+        &emsp;&emsp;
+        {`s: ${s},`}
         <br />
-        {`xl: ${xl}`}
+        &emsp;&emsp;
+        {`m: ${m},`}
         <br />
-        {`count: ${count}`}
+        &emsp;&emsp;
+        {`l: ${l},`}
+        <br />
+        &emsp;&emsp;
+        {`xl: ${xl},`}
+        <br />
+        &emsp;
+        {'},'}
+        <br />
+        &emsp;
+        {`eventsFired: ${eventsFired}`}
+        <br />
+        {'}'}
       </pre>
     </code>
   );
@@ -53,7 +71,7 @@ WindowInfoDemo.propTypes = {
       xl: PropTypes.bool,
     }),
     orientation: PropTypes.number,
-    count: PropTypes.number,
+    eventsFired: PropTypes.number,
   }).isRequired,
 };
 

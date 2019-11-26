@@ -17,7 +17,7 @@ class WindowInfoProvider extends Component {
         l: false,
         xl: false,
       },
-      count: 0,
+      eventsFired: 0,
     };
   }
 
@@ -63,10 +63,10 @@ class WindowInfoProvider extends Component {
   }
 
   requestAnimation = () => {
-    const { animationScheduled, count } = this.state;
+    const { animationScheduled, eventsFired } = this.state;
     if (!animationScheduled) {
       requestAnimationFrame(this.updateWindowInfo);
-      this.setState({ animationScheduled: true, count: count + 1 });
+      this.setState({ animationScheduled: true, eventsFired: eventsFired + 1 });
     }
   }
 
@@ -76,7 +76,7 @@ class WindowInfoProvider extends Component {
       width,
       height,
       breakpoints,
-      count,
+      eventsFired,
     } = this.state;
 
     return (
@@ -86,7 +86,7 @@ class WindowInfoProvider extends Component {
             width,
             height,
             breakpoints,
-            count,
+            eventsFired,
           },
         }}
       >
