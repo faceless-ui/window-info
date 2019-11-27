@@ -27,6 +27,15 @@ class WindowInfoProvider extends Component {
     this.updateWindowInfo();
   }
 
+  componentDidUpdate(prevState) {
+    const { width, height } = this.state;
+    const { width: prevWidth, height: prevHeight } = prevState;
+
+    const RootStyleDeclaration = document.documentElement.style;
+    if (width !== prevWidth) RootStyleDeclaration.setProperty('--vw', `${width * 0.01}px`);
+    if (height !== prevHeight) RootStyleDeclaration.setProperty('--vh', `${height * 0.01}px`);
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.requestAnimation);
     window.removeEventListener('orientationchange', this.updateWindowInfoWithTimeout);
@@ -34,7 +43,7 @@ class WindowInfoProvider extends Component {
 
   updateWindowInfoWithTimeout = () => {
     setTimeout(() => {
-      this.updateSizes();
+      this.updateWindowInfo();
     }, 500);
   }
 

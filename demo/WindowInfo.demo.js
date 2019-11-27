@@ -19,34 +19,34 @@ const WindowInfoDemo = (props) => {
       <pre>
         {'scrollInfo: {'}
         <br />
-        &emsp;
+          &emsp;
         {`windowWidth: ${width},`}
         <br />
-        &emsp;
+          &emsp;
         {`windowHeight: ${height},`}
         <br />
-        &emsp;
+          &emsp;
         {'breakpoints: {'}
         <br />
-        &emsp;&emsp;
+          &emsp;&emsp;
         {`xs: ${xs},`}
         <br />
-        &emsp;&emsp;
+          &emsp;&emsp;
         {`s: ${s},`}
         <br />
-        &emsp;&emsp;
+          &emsp;&emsp;
         {`m: ${m},`}
         <br />
-        &emsp;&emsp;
+          &emsp;&emsp;
         {`l: ${l},`}
         <br />
-        &emsp;&emsp;
+          &emsp;&emsp;
         {`xl: ${xl},`}
         <br />
-        &emsp;
+          &emsp;
         {'},'}
         <br />
-        &emsp;
+          &emsp;
         {`eventsFired: ${eventsFired}`}
         <br />
         {'}'}
@@ -55,9 +55,7 @@ const WindowInfoDemo = (props) => {
   );
 };
 
-WindowInfoDemo.defaultProps = {
-
-};
+WindowInfoDemo.defaultProps = {};
 
 WindowInfoDemo.propTypes = {
   windowInfo: PropTypes.shape({

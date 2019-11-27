@@ -19,7 +19,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      // html to duplicate
       template: 'demo/index.html',
     }),
   ],
