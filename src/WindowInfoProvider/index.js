@@ -34,8 +34,16 @@ class WindowInfoProvider extends Component {
 
   updateWindowInfoWithTimeout = () => {
     setTimeout(() => {
-      this.updateSizes();
+      this.requestAnimation();
     }, 500);
+  }
+
+  requestAnimation = () => {
+    const { animationScheduled, eventsFired } = this.state;
+    if (!animationScheduled) {
+      requestAnimationFrame(this.updateWindowInfo);
+      this.setState({ animationScheduled: true, eventsFired: eventsFired + 1 });
+    }
   }
 
   updateWindowInfo = () => {
@@ -60,14 +68,21 @@ class WindowInfoProvider extends Component {
         xl: windowWidth <= xl,
       },
     });
+
+    this.setCSSVariables();
   }
 
-  requestAnimation = () => {
-    const { animationScheduled, eventsFired } = this.state;
-    if (!animationScheduled) {
-      requestAnimationFrame(this.updateWindowInfo);
-      this.setState({ animationScheduled: true, eventsFired: eventsFired + 1 });
-    }
+  setCSSVariables = () => {
+    const {
+      documentElement: {
+        style,
+        offsetWidth,
+        offsetHeight,
+      },
+    } = document;
+
+    style.setProperty('--vw', `${offsetWidth * 0.01}px`);
+    style.setProperty('--vh', `${offsetHeight * 0.01}px`);
   }
 
   render() {
