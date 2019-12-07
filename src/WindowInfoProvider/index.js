@@ -1,115 +1,93 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WindowInfoContext from './context';
 
-class WindowInfoProvider extends Component {
-  constructor(props) {
-    super(props);
+const WindowInfoProvider = (props) => {
+  const { children, breakpoints } = props;
 
-    this.state = {
-      animationScheduled: false,
-      width: 0,
-      height: 0,
-      breakpoints: {
-        xs: false,
-        s: false,
-        m: false,
-        l: false,
-        xl: false,
-      },
-      eventsFired: 0,
-    };
-  }
+  const [isAnimationScheduled, setIsAnimationScheduled] = useState(false);
+  const [numEventsFired, setNumEventsFired] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [breakpointStatus, setBreakpointStatus] = useState({
+    xs: false,
+    s: false,
+    m: false,
+    l: false,
+    xl: false,
+  });
 
-  componentDidMount() {
-    window.addEventListener('resize', this.requestAnimation);
-    window.addEventListener('orientationchange', this.updateWindowInfoWithTimeout);
-    this.updateWindowInfo();
-  }
+  useEffect(() => {
+    function setDocumentCSSVariables() {
+      const {
+        documentElement: {
+          style,
+          clientWidth,
+          clientHeight,
+        },
+      } = document;
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.requestAnimation);
-    window.removeEventListener('orientationchange', this.updateWindowInfoWithTimeout);
-  }
-
-  updateWindowInfoWithTimeout = () => {
-    setTimeout(() => {
-      this.requestAnimation();
-    }, 500);
-  }
-
-  requestAnimation = () => {
-    const { animationScheduled, eventsFired } = this.state;
-    if (!animationScheduled) {
-      requestAnimationFrame(this.updateWindowInfo);
-      this.setState({ animationScheduled: true, eventsFired: eventsFired + 1 });
+      style.setProperty('--vw', `${clientWidth * 0.01}px`);
+      style.setProperty('--vh', `${clientHeight * 0.01}px`);
     }
-  }
 
-  updateWindowInfo = () => {
-    const {
-      breakpoints: {
-        xs, s, m, l, xl,
-      },
-    } = this.props;
+    function updateWindowInfo() {
+      const { xs, s, m, l, xl } = breakpoints;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    this.setState({
-      animationScheduled: false,
-      width: windowWidth,
-      height: windowHeight,
-      breakpoints: {
+      setIsAnimationScheduled(false);
+      setWidth(windowWidth);
+      setHeight(windowHeight);
+      setBreakpointStatus({
         xs: windowWidth <= xs,
         s: windowWidth <= s,
         m: windowWidth <= m,
         l: windowWidth <= l,
         xl: windowWidth <= xl,
-      },
-    });
+      });
 
-    this.setCSSVariables();
-  }
+      setDocumentCSSVariables();
+    }
 
-  setCSSVariables = () => {
-    const {
-      documentElement: {
-        style,
-        clientWidth,
-        clientHeight,
-      },
-    } = document;
+    function requestAnimation() {
+      if (!isAnimationScheduled) {
+        requestAnimationFrame(updateWindowInfo);
+        setIsAnimationScheduled(true);
+        setNumEventsFired(numEventsFired + 1);
+      }
+    }
 
-    style.setProperty('--vw', `${clientWidth * 0.01}px`);
-    style.setProperty('--vh', `${clientHeight * 0.01}px`);
-  }
+    const updateWindowInfoWithTimeout = () => setTimeout(() => {
+      requestAnimation();
+    }, 500);
 
-  render() {
-    const { children } = this.props;
-    const {
-      width,
-      height,
-      breakpoints,
-      eventsFired,
-    } = this.state;
+    window.addEventListener('resize', requestAnimation);
+    window.addEventListener('orientationchange', updateWindowInfoWithTimeout);
+    if (numEventsFired === 0) updateWindowInfo();
 
-    return (
-      <WindowInfoContext.Provider
-        value={{
-          windowInfo: {
-            width,
-            height,
-            breakpoints,
-            eventsFired,
-          },
-        }}
-      >
-        {children}
-      </WindowInfoContext.Provider>
-    );
-  }
-}
+    return function cleanup() {
+      window.removeEventListener('resize', requestAnimation);
+      window.removeEventListener('orientationchange', updateWindowInfoWithTimeout);
+      clearTimeout(updateWindowInfoWithTimeout);
+    };
+  }, [breakpoints, isAnimationScheduled, numEventsFired]);
+
+  return (
+    <WindowInfoContext.Provider
+      value={{
+        windowInfo: {
+          width,
+          height,
+          breakpoints: breakpointStatus,
+          eventsFired: numEventsFired,
+        },
+      }}
+    >
+      {children}
+    </WindowInfoContext.Provider>
+  );
+};
 
 WindowInfoProvider.defaultProps = {
   breakpoints: {},
