@@ -41,12 +41,13 @@ class WindowInfoProvider extends Component {
   requestAnimation = () => {
     const { animationScheduled } = this.state;
     if (!animationScheduled) {
-      requestAnimationFrame(this.updateWindowInfo);
-      this.setState({ animationScheduled: true });
+      this.setState({
+        animationScheduled: true,
+      }, () => requestAnimationFrame(this.updateWindowInfo));
     }
   }
 
-  updateWindowInfo = () => {
+  updateWindowInfo = (timestamp) => {
     const {
       breakpoints: {
         xs, s, m, l, xl,
@@ -59,7 +60,6 @@ class WindowInfoProvider extends Component {
     const windowHeight = window.innerHeight;
 
     this.setState({
-      animationScheduled: false,
       width: windowWidth,
       height: windowHeight,
       breakpoints: {
@@ -69,7 +69,8 @@ class WindowInfoProvider extends Component {
         l: windowWidth <= l,
         xl: windowWidth <= xl,
       },
-      eventsFired: eventsFired + 1,
+      eventsFired: timestamp ? eventsFired + 1 : eventsFired,
+      animationScheduled: false,
     });
 
     this.setCSSVariables();
@@ -90,24 +91,11 @@ class WindowInfoProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const {
-      width,
-      height,
-      breakpoints,
-      eventsFired,
-    } = this.state;
+    const windowInfo = { ...this.state };
+    delete windowInfo.animationScheduled;
 
     return (
-      <WindowInfoContext.Provider
-        value={{
-          windowInfo: {
-            width,
-            height,
-            breakpoints,
-            eventsFired,
-          },
-        }}
-      >
+      <WindowInfoContext.Provider value={{ windowInfo }}>
         {children}
       </WindowInfoContext.Provider>
     );
