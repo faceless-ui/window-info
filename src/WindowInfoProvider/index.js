@@ -7,7 +7,6 @@ class WindowInfoProvider extends Component {
     super(props);
 
     this.state = {
-      animationScheduled: false,
       width: 0,
       height: 0,
       breakpoints: {
@@ -18,6 +17,7 @@ class WindowInfoProvider extends Component {
         xl: false,
       },
       eventsFired: 0,
+      animationScheduled: false,
     };
   }
 
@@ -41,8 +41,9 @@ class WindowInfoProvider extends Component {
   requestAnimation = () => {
     const { animationScheduled } = this.state;
     if (!animationScheduled) {
-      requestAnimationFrame(this.updateWindowInfo);
-      this.setState({ animationScheduled: true });
+      this.setState({
+        animationScheduled: true,
+      }, () => requestAnimationFrame(this.updateWindowInfo));
     }
   }
 
@@ -53,13 +54,12 @@ class WindowInfoProvider extends Component {
       },
     } = this.props;
 
-    const { eventsFired } = this.state;
+    const { eventsFired: prevEventsFired } = this.state;
 
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
     this.setState({
-      animationScheduled: false,
       width: windowWidth,
       height: windowHeight,
       breakpoints: {
@@ -69,7 +69,8 @@ class WindowInfoProvider extends Component {
         l: windowWidth <= l,
         xl: windowWidth <= xl,
       },
-      eventsFired: eventsFired + 1,
+      eventsFired: prevEventsFired + 1,
+      animationScheduled: false,
     });
 
     this.setCSSVariables();
@@ -90,24 +91,11 @@ class WindowInfoProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const {
-      width,
-      height,
-      breakpoints,
-      eventsFired,
-    } = this.state;
+    const windowInfo = { ...this.state };
+    delete windowInfo.animationScheduled;
 
     return (
-      <WindowInfoContext.Provider
-        value={{
-          windowInfo: {
-            width,
-            height,
-            breakpoints,
-            eventsFired,
-          },
-        }}
-      >
+      <WindowInfoContext.Provider value={{ windowInfo }}>
         {children}
       </WindowInfoContext.Provider>
     );
