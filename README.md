@@ -14,7 +14,7 @@ The window, not Windows.
 $ yarn add @trbl/react-window-info
 ```
 
-### Compositon
+### Composition
 
 ```jsx
   import React from 'react';
@@ -40,8 +40,8 @@ $ yarn add @trbl/react-window-info
 To demo locally, clone the repo and
 
 ```bash
-$ yarn install
-$ npm run dev
+$ yarn
+$ yarn dev
 $ open http://localhost:3000
 ```
 
