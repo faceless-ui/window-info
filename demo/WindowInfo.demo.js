@@ -17,37 +17,37 @@ const WindowInfoDemo = (props) => {
   return (
     <code>
       <pre>
-        {'scrollInfo: {'}
+        {'windowInfo: {'}
         <br />
-          &emsp;
-        {`windowWidth: ${width},`}
+        &emsp;
+        {`width: ${width},`}
         <br />
-          &emsp;
-        {`windowHeight: ${height},`}
+        &emsp;
+        {`height: ${height},`}
         <br />
-          &emsp;
+        &emsp;
         {'breakpoints: {'}
         <br />
-          &emsp;&emsp;
+        &emsp;&emsp;
         {`xs: ${xs},`}
         <br />
-          &emsp;&emsp;
+        &emsp;&emsp;
         {`s: ${s},`}
         <br />
-          &emsp;&emsp;
+        &emsp;&emsp;
         {`m: ${m},`}
         <br />
-          &emsp;&emsp;
+        &emsp;&emsp;
         {`l: ${l},`}
         <br />
-          &emsp;&emsp;
+        &emsp;&emsp;
         {`xl: ${xl},`}
         <br />
-          &emsp;
+        &emsp;
         {'},'}
         <br />
-          &emsp;
-        {`eventsFired: ${eventsFired}`}
+        &emsp;
+        {`eventsFired: ${eventsFired},`}
         <br />
         {'}'}
       </pre>

@@ -76,6 +76,10 @@ class WindowInfoProvider extends Component {
     this.setCSSVariables();
   }
 
+  // This method is a cross-browser patch to achieve above-the-fold, fullscreen mobile experiences.
+  // The technique accounts for the collapsing bottom toolbar of some mobile browsers which are out of normal flow.
+  // It provides an alternate to the "vw" and "vh" CSS units by generating respective CSS variables.
+  // It specifically reads the size of documentElement since its height does not include the toolbar.
   setCSSVariables = () => {
     const {
       documentElement: {
@@ -96,18 +100,19 @@ class WindowInfoProvider extends Component {
 
     return (
       <WindowInfoContext.Provider value={{ windowInfo }}>
-        {children}
+        {children && children}
       </WindowInfoContext.Provider>
     );
   }
 }
 
 WindowInfoProvider.defaultProps = {
+  children: undefined,
   breakpoints: {},
 };
 
 WindowInfoProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   breakpoints: PropTypes.shape({
     xs: PropTypes.number,
     s: PropTypes.number,
