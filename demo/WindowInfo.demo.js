@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import {
+  // useWindowInfo,
+  withWindowInfo,
+} from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
 const WindowInfoDemo = (props) => {
   const {
@@ -12,7 +15,7 @@ const WindowInfoDemo = (props) => {
       },
       eventsFired,
     },
-  } = props;
+  } = props; // to demo hook, change to `useWindowInfo()` and remove `withWindowInfo` HOC
 
   return (
     <code>

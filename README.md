@@ -18,9 +18,10 @@ $ yarn add @trbl/react-window-info
 
 ```jsx
   import React from 'react';
-  import { WindowInfoProvider, withWindowInfo } from '@trbl/react-window-info';
+  import { WindowInfoProvider, withWindowInfo, useWindowInfo } from '@trbl/react-window-info';
 
-  const MyComponent = withWindowInfo(() => <div>My Component</div>);
+  const MyComponent = withWindowInfo((props) => <div>{props}</div>);
+  const MyOtherComponent = () => <div>{useWindowInfo()}</div>;
 
   const App = () => {
     return (
@@ -28,6 +29,9 @@ $ yarn add @trbl/react-window-info
         <MyComponent>
           ...
         </MyComponent>
+        <MyOtherComponent>
+          ...
+        </MyOtherComponent>
       </WindowInfoProvider>
     )
   }
@@ -49,6 +53,7 @@ $ open http://localhost:3000
 
 All available props can be found via the references below:
 
+  - [useWindowInfo](./src/useWindowInfo/README.md)
   - [WindowInfoProvider](./src/WindowInfoProvider/README.md)
   - [withWindowInfo](./src/withWindowInfo/README.md)
 
