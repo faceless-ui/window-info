@@ -99,7 +99,7 @@ class WindowInfoProvider extends Component {
     delete windowInfo.animationScheduled;
 
     return (
-      <WindowInfoContext.Provider value={{ windowInfo }}>
+      <WindowInfoContext.Provider value={{ ...windowInfo }}>
         {children && children}
       </WindowInfoContext.Provider>
     );

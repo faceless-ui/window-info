@@ -8,7 +8,7 @@ const withWindowInfo = (PassedComponent) => {
         <PassedComponent
           {...{
             ...props,
-            ...context,
+            windowInfo: context,
           }}
         />
       )}

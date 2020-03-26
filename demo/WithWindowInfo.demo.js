@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  // useWindowInfo,
-  withWindowInfo,
-} from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const WindowInfoDemo = (props) => {
+const WithWindowInfo = (props) => {
   const {
     windowInfo: {
       width,
@@ -15,7 +12,7 @@ const WindowInfoDemo = (props) => {
       },
       eventsFired,
     },
-  } = props; // to demo hook, change to `useWindowInfo()` and remove `withWindowInfo` HOC
+  } = props;
 
   return (
     <code>
@@ -58,9 +55,9 @@ const WindowInfoDemo = (props) => {
   );
 };
 
-WindowInfoDemo.defaultProps = {};
+WithWindowInfo.defaultProps = {};
 
-WindowInfoDemo.propTypes = {
+WithWindowInfo.propTypes = {
   windowInfo: PropTypes.shape({
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -76,4 +73,4 @@ WindowInfoDemo.propTypes = {
   }).isRequired,
 };
 
-export default withWindowInfo(WindowInfoDemo);
+export default withWindowInfo(WithWindowInfo);

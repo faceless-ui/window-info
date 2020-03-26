@@ -20,18 +20,14 @@ $ yarn add @trbl/react-window-info
   import React from 'react';
   import { WindowInfoProvider, withWindowInfo, useWindowInfo } from '@trbl/react-window-info';
 
-  const MyComponent = withWindowInfo((props) => <div>{props}</div>);
-  const MyOtherComponent = () => <div>{useWindowInfo()}</div>;
+  const WithWindowInfo = withWindowInfo(({ windowInfo }) => <div>{windowInfo}</div>);
+  const UseWindowInfo = () => <div>{useWindowInfo()}</div>;
 
   const App = () => {
     return (
       <WindowInfoProvider>
-        <MyComponent>
-          ...
-        </MyComponent>
-        <MyOtherComponent>
-          ...
-        </MyOtherComponent>
+        <WithWindowInfo />
+        <UseWindowInfo />
       </WindowInfoProvider>
     )
   }

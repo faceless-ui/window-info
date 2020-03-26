@@ -29,9 +29,9 @@ describe('withWindowInfo', () => {
   );
 
   it('rendered with an initial windowInfo prop of correct shape and value', () => {
-    const { value: { windowInfo } } = wrapper.props();
+    const { value: hocProps } = wrapper.props();
 
-    expect(windowInfo).toMatchObject({
+    expect(hocProps).toMatchObject({
       width: 1024, // default
       height: 768, // default
       breakpoints: {
@@ -47,9 +47,9 @@ describe('withWindowInfo', () => {
 
   it('received an updated windowInfo prop after a window resize event', () => {
     window.resizeTo(767, 1200);
-    const { value: { windowInfo } } = wrapper.props();
+    const { value: hocProps } = wrapper.props();
 
-    expect(windowInfo).toMatchObject({
+    expect(hocProps).toMatchObject({
       width: 767,
       height: 1200,
       breakpoints: {

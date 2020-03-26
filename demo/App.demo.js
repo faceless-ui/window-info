@@ -1,6 +1,7 @@
 import React from 'react';
 import { WindowInfoProvider } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import WindowInfoDemo from './WindowInfo.demo';
+// import WithWindowInfo from './WithWindowInfo.demo';
+import UseWindowInfo from './UseWindowInfo.demo';
 
 const AppDemo = () => (
   <WindowInfoProvider
@@ -12,7 +13,8 @@ const AppDemo = () => (
       xl: 1200,
     }}
   >
-    <WindowInfoDemo />
+    {/* <WithWindowInfo /> */}
+    <UseWindowInfo />
   </WindowInfoProvider>
 );
 
