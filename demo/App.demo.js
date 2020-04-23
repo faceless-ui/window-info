@@ -1,7 +1,8 @@
 import React from 'react';
-import { WindowInfoProvider } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-// import WithWindowInfo from './WithWindowInfo.demo';
+import { WindowInfoProvider, WindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import WithWindowInfo from './WithWindowInfo.demo';
 import UseWindowInfo from './UseWindowInfo.demo';
+import PrintObject from './PrintObject';
 
 const AppDemo = () => (
   <WindowInfoProvider
@@ -13,8 +14,11 @@ const AppDemo = () => (
       xl: 1200,
     }}
   >
-    {/* <WithWindowInfo /> */}
+    <WithWindowInfo />
     <UseWindowInfo />
+    <WindowInfo>
+      {(windowInfo) => PrintObject(windowInfo)}
+    </WindowInfo>
   </WindowInfoProvider>
 );
 

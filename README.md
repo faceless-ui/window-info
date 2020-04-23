@@ -4,13 +4,20 @@
 
 # React Window Info
 
-The window, not Windows.
+Lorem ipsum
+
+## Highlights
+
+- #### Lorem ipsum
+  Lorem ipsum
 
 ## Quick Start
 
 ### Installation
 
 ```bash
+$ npm i @trbl/react-window-info
+$ # or
 $ yarn add @trbl/react-window-info
 ```
 
@@ -18,28 +25,35 @@ $ yarn add @trbl/react-window-info
 
 ```jsx
   import React from 'react';
-  import { WindowInfoProvider, withWindowInfo, useWindowInfo } from '@trbl/react-window-info';
+  import {
+    WindowInfo,
+    WindowInfoProvider,
+    withWindowInfo,
+    useWindowInfo
+  } from '@trbl/react-window-info';
 
   const WithWindowInfo = withWindowInfo(({ windowInfo }) => <div>{windowInfo}</div>);
   const UseWindowInfo = () => <div>{useWindowInfo()}</div>;
 
-  const App = () => {
-    return (
-      <WindowInfoProvider>
-        <WithWindowInfo />
-        <UseWindowInfo />
-      </WindowInfoProvider>
-    )
-  }
+  const App = () => (
+    <WindowInfoProvider>
+      <WithWindowInfo />
+      <UseWindowInfo />
+      <WindowInfo>
+        {(windowInfo) => <div>{windowInfo}</div>}
+      <WindowInfo>
+    </WindowInfoProvider>
+  );
 
   export default App;
 ```
 
+For working examples, see the [demo app](./demo/App.demo.js).
+
 ## Demo
 
-To demo locally, clone the repo and
-
 ```bash
+$ git clone git@github.com:trouble/react-window-info.git
 $ yarn
 $ yarn dev
 $ open http://localhost:3000
@@ -47,9 +61,9 @@ $ open http://localhost:3000
 
 ## Documentation
 
-All available props can be found via the references below:
-
   - [useWindowInfo](./src/useWindowInfo/README.md)
+  - [WindowInfo](./src/WindowInfo/README.md)
+  - [WindowInfo](./src/WindowInfo/README.md)
   - [WindowInfoProvider](./src/WindowInfoProvider/README.md)
   - [withWindowInfo](./src/withWindowInfo/README.md)
 
