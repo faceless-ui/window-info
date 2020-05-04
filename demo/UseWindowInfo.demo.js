@@ -1,9 +1,9 @@
 import { useWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import PrintObject from './PrintObject';
+import LogProps from './LogProps';
 
 const UseWindowInfo = () => {
   const windowInfo = useWindowInfo();
-  return PrintObject(windowInfo);
+  return LogProps(windowInfo);
 };
 
 export default UseWindowInfo;

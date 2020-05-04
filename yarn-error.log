@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.21.1/libexec/bin/yarn.js dev
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.21.1/libexec/bin/yarn.js add --dev @trbl/react-ui-elements
 
 PATH: 
   /usr/local/php5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/php5/bin:/usr/local/mongodb/bin:/usr/local/mongodb/bin
@@ -14,17 +14,22 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/jacobfletcher/dev/npm/react-window-info/package.json: Unexpected token / in JSON at position 1576
-      at JSON.parse (<anonymous>)
-      at /usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:310:30)
-      at /usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:321:13
+  Error: https://registry.npmjs.org/@trbl%2freact-ui-elements: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:66947:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:140665:22)
+      at Request.emit (events.js:223:5)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:141637:10)
+      at Request.emit (events.js:223:5)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:141559:12)
+      at Object.onceWrapper (events.js:312:28)
+      at IncomingMessage.emit (events.js:228:7)
+      at endReadableNT (_stream_readable.js:1185:12)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
 
 npm manifest: 
   {
     "name": "@trbl/react-window-info",
-    "version": "1.1.0",
+    "version": "1.2.2",
     "main": "dist/build.bundle.js",
     "repository": "git@github.com:trouble/react-window-info.git",
     "description": "The window, not Windows.",
@@ -44,8 +49,9 @@ npm manifest:
     "scripts": {
       "build": "yarn lint && yarn test && webpack --config webpack.production.config.js",
       "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
+      "netlify": "yarn lint && yarn test && webpack --config webpack.netlify.config.js",
       "lint": "eslint .",
-      "test": "jest"
+      "test": "yarn lint --fix && jest"
     },
     "peerDependencies": {
       "react": "^16.8.0",
@@ -59,6 +65,7 @@ npm manifest:
       "@babel/plugin-proposal-class-properties": "^7.8.3",
       "@babel/preset-env": "^7.8.4",
       "@babel/preset-react": "^7.8.3",
+      "@hot-loader/react-dom": "^16.13.0",
       "@trbl/eslint-config": "^1.2.4",
       "@trbl/utils": "^1.1.1",
       "babel-eslint": "^10.0.3",
@@ -77,8 +84,8 @@ npm manifest:
       "husky": "^4.2.1",
       "jest": "^25.1.0",
       "lint-staged": "^10.0.6",
-      // "react": "^16.12.0",
-      // "react-dom": "^16.12.0",
+      "react": "^16.12.0",
+      "react-dom": "^16.12.0",
       "react-hot-loader": "^4.12.19",
       "webpack": "^4.41.4",
       "webpack-cli": "^3.3.9",
@@ -93,7 +100,8 @@ npm manifest:
       }
     },
     "files": [
-      "dist"
+      "dist/build.bundle.js",
+      "dist/build.bundle.js.map"
     ]
   }
 
@@ -973,6 +981,13 @@ Lockfile:
     dependencies:
       regenerator-runtime "^0.13.2"
   
+  "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+    version "7.9.2"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
+    integrity sha512-NE2DtOdufG7R5vnfQUTehdTfNycfUANEtCa9PssN9O/xmTzP4E08UI797ixaei6hBEVL9BI/PsdJS5x7mWoB9Q==
+    dependencies:
+      regenerator-runtime "^0.13.4"
+  
   "@babel/runtime@^7.6.3":
     version "7.8.4"
     resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
@@ -1058,6 +1073,16 @@ Lockfile:
     dependencies:
       exec-sh "^0.3.2"
       minimist "^1.2.0"
+  
+  "@hot-loader/react-dom@^16.13.0":
+    version "16.13.0"
+    resolved "https://registry.yarnpkg.com/@hot-loader/react-dom/-/react-dom-16.13.0.tgz#de245b42358110baf80aaf47a0592153d4047997"
+    integrity sha512-lJZrmkucz2MrQJTQtJobx5MICXcfQvKihszqv655p557HPi0hMOWxrNpiHv3DWD8ugNWjtWcVWqRnFvwsHq1mQ==
+    dependencies:
+      loose-envify "^1.1.0"
+      object-assign "^4.1.1"
+      prop-types "^15.6.2"
+      scheduler "^0.19.0"
   
   "@istanbuljs/load-nyc-config@^1.0.0":
     version "1.0.0"
@@ -1255,6 +1280,24 @@ Lockfile:
       confusing-browser-globals "^1.0.9"
       object.assign "^4.1.0"
       object.entries "^1.1.1"
+  
+  "@trbl/react-html-element@^1.0.3":
+    version "1.0.3"
+    resolved "https://registry.yarnpkg.com/@trbl/react-html-element/-/react-html-element-1.0.3.tgz#5ebd8ff70763b8f49c7a2e5da9abf1e6a7530c17"
+    integrity sha512-RxESgsj4Sg7czeB3HzLqBw11wWLuXpy7/S0WyHpOIviw1JlxOK1HCEEMHLHgwwkLChmrESIxEVqzdeZq3VOp8w==
+    dependencies:
+      prop-types "^15.7.2"
+  
+  "@trbl/react-modal@^0.1.1":
+    version "0.1.1"
+    resolved "https://registry.yarnpkg.com/@trbl/react-modal/-/react-modal-0.1.1.tgz#c406728ccf8b340a2400a7ca1c56ae5fa22a0d9a"
+    integrity sha512-6+A42NMNuTF0WCvfxwarCEzsVsxH4hLZ/6IaF8h7Uu9GmdKUjcCGH+wySFXV1k23FXIG/dsofxvrnW+JYv/XeQ==
+    dependencies:
+      "@trbl/react-html-element" "^1.0.3"
+      minify-css-string "^1.0.0"
+      prop-types "^15.7.2"
+      qs "^6.9.1"
+      react-transition-group "^4.3.0"
   
   "@trbl/utils@^1.1.1":
     version "1.1.1"
@@ -2799,6 +2842,11 @@ Lockfile:
     dependencies:
       cssom "~0.3.6"
   
+  csstype@^2.6.7:
+    version "2.6.10"
+    resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
+    integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
+  
   cyclist@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
@@ -3038,6 +3086,14 @@ Lockfile:
     integrity sha512-gd3ypIPfOMr9h5jIKq8E3sHOTCjeirnl0WK5ZdS1AW0Odt0b1PaWaHdJ4Qk4klv+YB9aJBS7mESXjFoDQPu6DA==
     dependencies:
       utila "~0.4"
+  
+  dom-helpers@^5.0.1:
+    version "5.1.4"
+    resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.1.4.tgz#4609680ab5c79a45f2531441f1949b79d6587f4b"
+    integrity sha512-TjMyeVUvNEnOnhzs6uAn9Ya47GmMo3qq7m+Lr/3ON0Rs5kHvb8I+SQYjLUSYn7qhEm0QjW0yrBkvz9yOrwwz1A==
+    dependencies:
+      "@babel/runtime" "^7.8.7"
+      csstype "^2.6.7"
   
   dom-serializer@0:
     version "0.2.2"
@@ -5904,6 +5960,11 @@ Lockfile:
     dependencies:
       dom-walk "^0.1.0"
   
+  minify-css-string@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/minify-css-string/-/minify-css-string-1.0.0.tgz#201bd949271e19f6e0af0a1dc0ccc583de47c630"
+    integrity sha1-IBvZSSceGfbgrwodwMzFg95HxjA=
+  
   minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
@@ -6871,6 +6932,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
     integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
   
+  qs@^6.9.1:
+    version "6.9.3"
+    resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.3.tgz#bfadcd296c2d549f1dffa560619132c977f5008e"
+    integrity sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==
+  
   qs@~6.5.2:
     version "6.5.2"
     resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
@@ -6942,14 +7008,14 @@ Lockfile:
       unpipe "1.0.0"
   
   react-dom@^16.12.0:
-    version "16.12.0"
-    resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
-    integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
+    version "16.13.1"
+    resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
+    integrity sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag==
     dependencies:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
       prop-types "^15.6.2"
-      scheduler "^0.18.0"
+      scheduler "^0.19.1"
   
   react-hot-loader@^4.12.19:
     version "4.12.19"
@@ -6985,10 +7051,20 @@ Lockfile:
       react-is "^16.8.6"
       scheduler "^0.18.0"
   
+  react-transition-group@^4.3.0:
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
+    integrity sha512-1qRV1ZuVSdxPlPf4O8t7inxUGpdyO5zG9IoNfJxSO0ImU2A1YWkEQvFPuIPZmMLkg5hYs7vv5mMOyfgSkvAwvw==
+    dependencies:
+      "@babel/runtime" "^7.5.5"
+      dom-helpers "^5.0.1"
+      loose-envify "^1.4.0"
+      prop-types "^15.6.2"
+  
   react@^16.12.0:
-    version "16.12.0"
-    resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
-    integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
+    version "16.13.1"
+    resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
+    integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
     dependencies:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
@@ -7070,6 +7146,11 @@ Lockfile:
     version "0.13.3"
     resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
     integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
+  
+  regenerator-runtime@^0.13.4:
+    version "0.13.5"
+    resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
+    integrity sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==
   
   regenerator-transform@^0.14.0:
     version "0.14.1"
@@ -7419,6 +7500,14 @@ Lockfile:
     version "0.18.0"
     resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.18.0.tgz#5901ad6659bc1d8f3fdaf36eb7a67b0d6746b1c4"
     integrity sha512-agTSHR1Nbfi6ulI0kYNK0203joW2Y5W4po4l+v03tOoiJKpTBbxpNhWDvqc/4IcOw+KLmSiQLTasZ4cab2/UWQ==
+    dependencies:
+      loose-envify "^1.1.0"
+      object-assign "^4.1.1"
+  
+  scheduler@^0.19.0, scheduler@^0.19.1:
+    version "0.19.1"
+    resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+    integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
     dependencies:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"

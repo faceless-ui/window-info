@@ -21,7 +21,7 @@
     "build": "yarn lint && yarn test && webpack --config webpack.production.config.js",
     "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
     "lint": "eslint .",
-    "test": "yarn lint --fix && jest"
+    "test": "jest"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -70,6 +70,7 @@
     }
   },
   "files": [
-    "dist"
+    "dist/build.bundle.js",
+    "dist/build.bundle.js.map"
   ]
 }

@@ -54,10 +54,9 @@ $ yarn dev
 $ open http://localhost:3000
 ```
 
-## Documentation
+## API
 
   - [useWindowInfo](./src/useWindowInfo/README.md)
-  - [WindowInfo](./src/WindowInfo/README.md)
   - [WindowInfo](./src/WindowInfo/README.md)
   - [WindowInfoProvider](./src/WindowInfoProvider/README.md)
   - [withWindowInfo](./src/withWindowInfo/README.md)

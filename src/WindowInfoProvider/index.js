@@ -9,6 +9,8 @@ class WindowInfoProvider extends Component {
     this.state = {
       width: 0,
       height: 0,
+      '--vw': '0px',
+      '--vh': '0px',
       breakpoints: {
         xs: false,
         s: false,
@@ -56,12 +58,27 @@ class WindowInfoProvider extends Component {
 
     const { eventsFired: prevEventsFired } = this.state;
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+    const {
+      documentElement: {
+        style,
+        clientWidth,
+        clientHeight,
+      },
+    } = document;
+
+    const {
+      innerWidth: windowWidth,
+      innerHeight: windowHeight,
+    } = window;
+
+    const viewportWidth = `${clientWidth / 100}px`;
+    const viewportHeight = `${clientHeight / 100}px`;
 
     this.setState({
       width: windowWidth,
       height: windowHeight,
+      '--vw': viewportWidth,
+      '--vh': viewportHeight,
       breakpoints: {
         xs: windowWidth <= xs,
         s: windowWidth <= s,
@@ -73,24 +90,12 @@ class WindowInfoProvider extends Component {
       animationScheduled: false,
     });
 
-    this.setCSSVariables();
-  }
-
-  // This method is a cross-browser patch to achieve above-the-fold, fullscreen mobile experiences.
-  // The technique accounts for the collapsing bottom toolbar of some mobile browsers which are out of normal flow.
-  // It provides an alternate to the "vw" and "vh" CSS units by generating respective CSS variables.
-  // It specifically reads the size of documentElement since its height does not include the toolbar.
-  setCSSVariables = () => {
-    const {
-      documentElement: {
-        style,
-        clientWidth,
-        clientHeight,
-      },
-    } = document;
-
-    style.setProperty('--vw', `${clientWidth * 0.01}px`);
-    style.setProperty('--vh', `${clientHeight * 0.01}px`);
+    // This method is a cross-browser patch to achieve above-the-fold, fullscreen mobile experiences.
+    // The technique accounts for the collapsing bottom toolbar of some mobile browsers which are out of normal flow.
+    // It provides an alternate to the "vw" and "vh" CSS units by generating respective CSS variables.
+    // It specifically reads the size of documentElement since its height does not include the toolbar.
+    style.setProperty('--vw', viewportWidth);
+    style.setProperty('--vh', viewportHeight);
   }
 
   render() {
