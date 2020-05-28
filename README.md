@@ -1,19 +1,27 @@
-[![NPM](https://img.shields.io/npm/v/@trbl/react-window-info)](https://www.npmjs.com/@trbl/react-window-info)
-![Bundle Size](https://img.shields.io/bundlephobia/minzip/@trbl/react-window-info?label=zipped)
+[![NPM](https://img.shields.io/npm/v/@faceless-ui/window-info)](https://www.npmjs.com/@faceless-ui/window-info)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@faceless-ui/window-info?label=zipped)
 [![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
 # React Window Info
 
+A utility for subscribing to window events. Useful for conditional rendering, CSS breakpoints, or any window-based triggers.
+
 ## Highlights
+
+- #### Event Consolidation
+  One event, many effects. Attach one, single event listener to the window with [WindowInfoProvider](./src/WindowInfoProvider/README.md). Then subscribe to it from anywhere with [useWindowInfo](./useWindowInfo/README.md), [withWindowInfo](./withWindowInfo/README.md), or [WindowInfo](./WindowInfo/README.md), they all do the same thing.
+
+- #### Animation Ready
+  Piped through [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) for built-in throttling and debouncing.
 
 ## Quick Start
 
 ### Installation
 
 ```bash
-$ npm i @trbl/react-window-info
+$ npm i @faceless-ui/window-info
 $ # or
-$ yarn add @trbl/react-window-info
+$ yarn add @faceless-ui/window-info
 ```
 
 ### Composition
@@ -25,7 +33,7 @@ $ yarn add @trbl/react-window-info
     WindowInfoProvider,
     withWindowInfo,
     useWindowInfo
-  } from '@trbl/react-window-info';
+  } from '@faceless-ui/window-info';
 
   const WithWindowInfo = withWindowInfo(({ windowInfo }) => <div>{windowInfo}</div>);
   const UseWindowInfo = () => <div>{useWindowInfo()}</div>;
@@ -48,7 +56,7 @@ For working examples, see the [demo app](./demo/App.demo.js).
 ## Demo
 
 ```bash
-$ git clone git@github.com:trouble/react-window-info.git
+$ git clone git@github.com:faceless-ui/window-info.git
 $ yarn
 $ yarn dev
 $ open http://localhost:3000
@@ -63,8 +71,8 @@ $ open http://localhost:3000
 
 ## Contribution
 
-[Help us,](https://github.com/trouble/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/trouble/.github/blob/master/SUPPORT.md).
+[Help us,](https://github.com/faceless-ui/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/faceless-ui/.github/blob/master/SUPPORT.md).
 
 ## License
 
-[MIT](https://github.com/trouble/react-window-info/blob/master/LICENSE) Copyright (c) TRBL, LLC
+[MIT](https://github.com/faceless-ui/window-info/blob/master/LICENSE) Copyright (c) TRBL, LLC

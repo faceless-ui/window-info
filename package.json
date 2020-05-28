@@ -1,8 +1,8 @@
 {
-  "name": "@trbl/react-window-info",
+  "name": "@faceless-ui/window-info",
   "version": "1.2.2",
   "main": "dist/build.bundle.js",
-  "repository": "git@github.com:trouble/react-window-info.git",
+  "repository": "git@github.com:faceless-ui/window-info.git",
   "description": "The window, not Windows.",
   "author": "<dev@trbl.design>",
   "license": "MIT",

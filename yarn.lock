@@ -1163,13 +1163,6 @@
     object.assign "^4.1.0"
     object.entries "^1.1.1"
 
-"@trbl/react-ui-components@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@trbl/react-ui-components/-/react-ui-components-0.0.3.tgz#aa80551a02a5ac56b91a3edae584576215c5f535"
-  integrity sha512-Jwz0zhRtDIgyGAjPGPimxoaQcJpRCmSn2gOwXqbAkZBgMH7wIhLrQgJmtEjY4sKumFr7P+5bO9REU3+ksydOkA==
-  dependencies:
-    prop-types "^15.7.2"
-
 "@trbl/utils@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@trbl/utils/-/utils-1.1.1.tgz#dca98e7590f50157abec2341cad12ade57abd2d6"
