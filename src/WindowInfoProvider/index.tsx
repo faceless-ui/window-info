@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import WindowInfoContext from './context';
+import WindowInfoContext from '../WindowInfoContext';
+import { IWindowInfoContext } from '../WindowInfoContext/types';
+import { Props } from './types';
 
-class WindowInfoProvider extends Component {
-  constructor(props) {
+class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -23,24 +24,24 @@ class WindowInfoProvider extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener('resize', this.requestAnimation);
     window.addEventListener('orientationchange', this.updateWindowInfoWithTimeout);
     this.updateWindowInfo();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener('resize', this.requestAnimation);
     window.removeEventListener('orientationchange', this.updateWindowInfoWithTimeout);
   }
 
-  updateWindowInfoWithTimeout = () => {
+  updateWindowInfoWithTimeout = (): void => {
     setTimeout(() => {
       this.requestAnimation();
     }, 500);
   }
 
-  requestAnimation = () => {
+  requestAnimation = (): void => {
     const { animationScheduled } = this.state;
     if (!animationScheduled) {
       this.setState({
@@ -49,7 +50,7 @@ class WindowInfoProvider extends Component {
     }
   }
 
-  updateWindowInfo = () => {
+  updateWindowInfo = (): void => {
     const {
       breakpoints: {
         xs, s, m, l, xl,
@@ -98,7 +99,7 @@ class WindowInfoProvider extends Component {
     style.setProperty('--vh', viewportHeight);
   }
 
-  render() {
+  render(): JSX.Element {
     const { children } = this.props;
     const windowInfo = { ...this.state };
     delete windowInfo.animationScheduled;
@@ -110,21 +111,5 @@ class WindowInfoProvider extends Component {
     );
   }
 }
-
-WindowInfoProvider.defaultProps = {
-  children: undefined,
-  breakpoints: {},
-};
-
-WindowInfoProvider.propTypes = {
-  children: PropTypes.node,
-  breakpoints: PropTypes.shape({
-    xs: PropTypes.number,
-    s: PropTypes.number,
-    m: PropTypes.number,
-    l: PropTypes.number,
-    xl: PropTypes.number,
-  }),
-};
 
 export default WindowInfoProvider;

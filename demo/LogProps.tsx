@@ -1,4 +1,5 @@
 import React from 'react';
+import { IWindowInfoContext } from '../src/WindowInfoContext/types';
 
 const filterObject = () => {
   const seen = new WeakSet();
@@ -22,7 +23,7 @@ const filterObject = () => {
   };
 };
 
-const LogProps = (props) => (
+const LogProps: React.FC<IWindowInfoContext> = (props) => (
   <code>
     <pre>
       {JSON.stringify(props, filterObject(), 2)}

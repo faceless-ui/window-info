@@ -7,7 +7,7 @@ import {
 import UseWindowInfo from './UseWindowInfo.demo';
 // import LogProps from './LogProps';
 
-const AppDemo = () => (
+const AppDemo: React.FC = () => (
   <WindowInfoProvider
     breakpoints={{
       xs: 350,

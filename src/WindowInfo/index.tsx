@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import useWindowInfo from '../useWindowInfo';
 
-const WindowInfo = (props) => {
+const WindowInfo: React.FC = (props) => {
   const { children } = props;
   const windowInfo = useWindowInfo();
-  if (children && typeof children === 'function') return children(windowInfo);
+  if (children) {
+    if (typeof children === 'function') return children(windowInfo);
+    return children;
+  }
   return null;
 };
 
