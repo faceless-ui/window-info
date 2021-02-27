@@ -1,7 +1,7 @@
 import React from 'react';
 import useWindowInfo from '../useWindowInfo';
 
-const withWindow = <P extends Record<string, unknown>>(
+const withWindowInfo = <P extends Record<string, unknown>>(
   PassedComponent: React.ComponentType<P>,
 ): React.FC<P> => {
   const WindowInfoWrap: React.FC<P> = (props) => {
@@ -19,4 +19,4 @@ const withWindow = <P extends Record<string, unknown>>(
   return WindowInfoWrap;
 };
 
-export default withWindow;
+export default withWindowInfo;
