@@ -1,6 +1,6 @@
 {
   "name": "@faceless-ui/window-info",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "main": "dist/build.bundle.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:faceless-ui/window-info.git",
