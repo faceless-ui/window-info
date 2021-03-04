@@ -53,8 +53,12 @@ class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
   updateWindowInfo = (): void => {
     const {
       breakpoints: {
-        xs, s, m, l, xl,
-      },
+        xs,
+        s,
+        m,
+        l,
+        xl,
+      } = {},
     } = this.props;
 
     const { eventsFired: prevEventsFired } = this.state;
