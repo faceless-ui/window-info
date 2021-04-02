@@ -1,10 +1,10 @@
 {
   "name": "@faceless-ui/window-info",
   "version": "1.2.7",
-  "main": "dist/build.bundle.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:faceless-ui/window-info.git",
-  "description": "The window, not Windows.",
+  "description": "React utility for subscribing to window events",
   "author": "<dev@trbl.design>",
   "license": "MIT",
   "keywords": [
@@ -19,7 +19,8 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn lint && webpack --config webpack.production.config.js",
+    "build": "yarn lint && tsc",
+    "build-demo": "yarn lint && webpack --config webpack.demo.config.js",
     "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
     "lint": "eslint .",
     "test": "jest"
