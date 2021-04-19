@@ -7,5 +7,6 @@ type Breakpoints = {
 }
 
 export type Props = {
-  breakpoints?: Breakpoints
+  breakpoints?: Breakpoints,
+  heightBreakpoints?: Breakpoints,
 }

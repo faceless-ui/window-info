@@ -12,6 +12,7 @@ export interface IWindowInfoContext {
   '--vw': string,
   '--vh': string,
   breakpoints: IBreakpoints,
+  heightBreakpoints: IBreakpoints,
   eventsFired: number,
   animationScheduled: boolean,
 }

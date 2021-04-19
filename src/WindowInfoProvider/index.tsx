@@ -19,6 +19,13 @@ class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
         l: false,
         xl: false,
       },
+      heightBreakpoints: {
+        xs: false,
+        s: false,
+        m: false,
+        l: false,
+        xl: false,
+      },
       eventsFired: 0,
       animationScheduled: false,
     };
@@ -59,6 +66,13 @@ class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
         l,
         xl,
       } = {},
+      heightBreakpoints: {
+        xs: heightXS,
+        s: heightS,
+        m: heightM,
+        l: heightL,
+        xl: heightXL,
+      } = {},
     } = this.props;
 
     const { eventsFired: prevEventsFired } = this.state;
@@ -90,6 +104,13 @@ class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
         m: window.matchMedia(`(max-width: ${m}px)`).matches,
         l: window.matchMedia(`(max-width: ${l}px)`).matches,
         xl: window.matchMedia(`(max-width: ${xl}px)`).matches,
+      },
+      heightBreakpoints: {
+        xs: window.matchMedia(`(max-height: ${heightXS}px)`).matches,
+        s: window.matchMedia(`(max-height: ${heightS}px)`).matches,
+        m: window.matchMedia(`(max-height: ${heightM}px)`).matches,
+        l: window.matchMedia(`(max-height: ${heightL}px)`).matches,
+        xl: window.matchMedia(`(max-height: ${heightXL}px)`).matches,
       },
       eventsFired: prevEventsFired + 1,
       animationScheduled: false,

@@ -16,14 +16,28 @@ const breakpoints = {
   xl: 1200,
 };
 
+const heightBreakpoints = {
+  xs: 500,
+  s: 600,
+  m: 700,
+  l: 800,
+  xl: 900,
+};
+
 const AppDemo: React.FC = () => (
-  <WindowInfoProvider breakpoints={breakpoints}>
+  <WindowInfoProvider
+    breakpoints={breakpoints}
+    heightBreakpoints={heightBreakpoints}
+  >
     <UseWindowInfo />
     {/* <WithWindowInfo /> */}
     {/* <WindowInfo>
       {(windowInfo) => LogProps(windowInfo)}
     </WindowInfo> */}
-    <StylesheetDemo breakpoints={breakpoints} />
+    <StylesheetDemo
+      breakpoints={breakpoints}
+      heightBreakpoints={heightBreakpoints}
+    />
   </WindowInfoProvider>
 );
 
