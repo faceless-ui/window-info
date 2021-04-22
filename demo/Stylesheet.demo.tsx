@@ -1,13 +1,8 @@
 import React, { Fragment } from 'react';
+import { Breakpoints } from '../src/types';
 
 type Props = {
-  breakpoints: {
-    xs: number,
-    s: number,
-    m: number,
-    l: number,
-    xl: number
-  }
+  breakpoints: Breakpoints
 }
 
 const StylesheetDemo: React.FC<Props> = (props) => {
@@ -22,27 +17,20 @@ const StylesheetDemo: React.FC<Props> = (props) => {
     <Fragment>
       <style
         dangerouslySetInnerHTML={{
-          __html: hasBreakpoints && breakpointsKeys.map((key) => `@media(max-width: ${breakpoints[key]}px) { #${key} { color: green; } }`).join(' '),
+          __html: hasBreakpoints && breakpointsKeys.map((key) => `@media${breakpoints[key]} { #${key} { color: green; } }`).join(' '),
         }}
       />
       <code>
         <pre>
           @media:
-          <div id="xs">
-            xs
-          </div>
-          <div id="s">
-            s
-          </div>
-          <div id="m">
-            m
-          </div>
-          <div id="l">
-            l
-          </div>
-          <div id="xl">
-            xl
-          </div>
+          {hasBreakpoints && breakpointsKeys.map((breakpointKey) => (
+            <div
+              key={breakpointKey}
+              id={breakpointKey}
+            >
+              {`${breakpointKey}: ${breakpoints[breakpointKey]}`}
+            </div>
+          ))}
         </pre>
       </code>
     </Fragment>

@@ -9,11 +9,17 @@ import UseWindowInfo from './UseWindowInfo.demo';
 // import LogProps from './LogProps';
 
 const breakpoints = {
-  xs: 350,
-  s: 576,
-  m: 850,
-  l: 992,
-  xl: 1200,
+  'mobile-first-xs': '(min-width: 350px)',
+  'mobile-first-s': '(min-width: 576px)',
+  'mobile-first-m': '(min-width: 850px)',
+  'mobile-first-l': '(min-width: 992px)',
+  'mobile-first-xl': '(min-width: 1200px)',
+
+  'desktop-first-xs': '(max-width: 350px)',
+  'desktop-first-s': '(max-width: 576px)',
+  'desktop-first-m': '(max-width: 850px)',
+  'desktop-first-l': '(max-width: 992px)',
+  'desktop-first-xl': '(max-width: 1200px)',
 };
 
 const AppDemo: React.FC = () => (

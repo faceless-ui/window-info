@@ -1,5 +1,5 @@
 import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import { IWindowInfoContext } from '../src/WindowInfoContext/types';
+import { IWindowInfoContext } from '../src/WindowInfoContext';
 import LogProps from './LogProps';
 
 type Props = {

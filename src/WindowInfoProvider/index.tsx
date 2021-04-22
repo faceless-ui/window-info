@@ -1,67 +1,39 @@
-import React, { Component } from 'react';
-import WindowInfoContext from '../WindowInfoContext';
-import { IWindowInfoContext } from '../WindowInfoContext/types';
-import { Props } from './types';
+import React, { useCallback, useEffect, useReducer } from 'react';
+import { Breakpoints } from '../types';
+import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoContext';
 
-class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
-  constructor(props: Props) {
-    super(props);
+type Props = {
+  breakpoints: Breakpoints
+}
 
-    this.state = {
-      width: 0,
-      height: 0,
-      '--vw': '0px',
-      '--vh': '0px',
-      breakpoints: {
-        xs: false,
-        s: false,
-        m: false,
-        l: false,
-        xl: false,
-      },
-      eventsFired: 0,
-      animationScheduled: false,
-    };
-  }
+type Reducer = (state:IWindowInfoContext, payload:any) => IWindowInfoContext
 
-  componentDidMount(): void {
-    window.addEventListener('resize', this.requestAnimation);
-    window.addEventListener('orientationchange', this.updateWindowInfoWithTimeout);
-    this.updateWindowInfo();
-  }
+const initialState = {
+  width: 0,
+  height: 0,
+  '--vw': '0px',
+  '--vh': '0px',
+  breakpoints: undefined,
+  eventsFired: 0,
+  animationScheduled: false,
+};
 
-  componentWillUnmount(): void {
-    window.removeEventListener('resize', this.requestAnimation);
-    window.removeEventListener('orientationchange', this.updateWindowInfoWithTimeout);
-  }
+const reducer:Reducer = (state, payload) => ({
+  ...state,
+  ...payload,
+});
 
-  updateWindowInfoWithTimeout = (): void => {
-    setTimeout(() => {
-      this.requestAnimation();
-    }, 500);
-  }
+const WindowInfoProvider: React.FC<Props> = (props) => {
+  const { breakpoints, children } = props;
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  requestAnimation = (): void => {
-    const { animationScheduled } = this.state;
-    if (!animationScheduled) {
-      this.setState({
-        animationScheduled: true,
-      }, () => requestAnimationFrame(this.updateWindowInfo));
-    }
-  }
+  const generateMediaQueries = useCallback(() => Object.keys(breakpoints).reduce((matchMediaBreakpoints, key) => ({
+    ...matchMediaBreakpoints,
+    [key]: window.matchMedia(breakpoints[key]).matches,
+  }), {}), [breakpoints]);
 
-  updateWindowInfo = (): void => {
-    const {
-      breakpoints: {
-        xs,
-        s,
-        m,
-        l,
-        xl,
-      } = {},
-    } = this.props;
-
-    const { eventsFired: prevEventsFired } = this.state;
+  const updateWindowInfo = useCallback((): void => {
+    const { eventsFired: prevEventsFired } = state;
 
     const {
       documentElement: {
@@ -79,18 +51,12 @@ class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
     const viewportWidth = `${clientWidth / 100}px`;
     const viewportHeight = `${clientHeight / 100}px`;
 
-    this.setState({
+    dispatch({
       width: windowWidth,
       height: windowHeight,
       '--vw': viewportWidth,
       '--vh': viewportHeight,
-      breakpoints: {
-        xs: window.matchMedia(`(max-width: ${xs}px)`).matches,
-        s: window.matchMedia(`(max-width: ${s}px)`).matches,
-        m: window.matchMedia(`(max-width: ${m}px)`).matches,
-        l: window.matchMedia(`(max-width: ${l}px)`).matches,
-        xl: window.matchMedia(`(max-width: ${xl}px)`).matches,
-      },
+      breakpoints: { ...generateMediaQueries() },
       eventsFired: prevEventsFired + 1,
       animationScheduled: false,
     });
@@ -101,19 +67,48 @@ class WindowInfoProvider extends Component<Props, IWindowInfoContext> {
     // It specifically reads the size of documentElement since its height does not include the toolbar.
     style.setProperty('--vw', viewportWidth);
     style.setProperty('--vh', viewportHeight);
-  }
+  }, [generateMediaQueries, state]);
 
-  render(): JSX.Element {
-    const { children } = this.props;
-    const windowInfo = { ...this.state };
-    delete windowInfo.animationScheduled;
+  const requestAnimation = useCallback((): void => {
+    const { animationScheduled } = state;
+    if (!animationScheduled) {
+      dispatch({
+        animationScheduled: false,
+      });
+      requestAnimationFrame(updateWindowInfo);
+    }
+  }, [state, updateWindowInfo]);
 
-    return (
-      <WindowInfoContext.Provider value={{ ...windowInfo }}>
-        {children && children}
-      </WindowInfoContext.Provider>
-    );
-  }
-}
+  const updateWindowInfoWithTimeout = useCallback((): void => {
+    setTimeout(() => {
+      requestAnimation();
+    }, 500);
+  }, [requestAnimation]);
+
+  useEffect(() => {
+    window.addEventListener('resize', requestAnimation);
+    window.addEventListener('orientationchange', updateWindowInfoWithTimeout);
+
+    return () => {
+      window.removeEventListener('resize', requestAnimation);
+      window.removeEventListener('orientationchange', updateWindowInfoWithTimeout);
+    };
+  }, [requestAnimation, updateWindowInfoWithTimeout]);
+
+  useEffect(() => {
+    if (state.eventsFired === 0) {
+      updateWindowInfo();
+    }
+  }, [updateWindowInfo, state]);
+
+  const windowInfo = { ...state };
+  delete windowInfo.animationScheduled;
+
+  return (
+    <WindowInfoContext.Provider value={{ ...windowInfo }}>
+      {children && children}
+    </WindowInfoContext.Provider>
+  );
+};
 
 export default WindowInfoProvider;
