@@ -8,7 +8,6 @@ export interface IWindowInfoContext {
   '--vh': string,
   breakpoints: Breakpoints,
   eventsFired: number,
-  animationScheduled: boolean,
 }
 
 const WindowInfoContext = createContext<IWindowInfoContext>({} as IWindowInfoContext);

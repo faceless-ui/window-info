@@ -1,85 +1,93 @@
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import { Breakpoints } from '../types';
 import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoContext';
 
-type Props = {
-  breakpoints: Breakpoints
-}
+const reducer = (
+  state: IWindowInfoContext,
+  payload: {
+    breakpoints: Breakpoints,
+    animationRef: React.MutableRefObject<number>
+  },
+): IWindowInfoContext => {
+  const {
+    breakpoints,
+    animationRef,
+  } = payload;
 
-type Reducer = (state:IWindowInfoContext, payload:any) => IWindowInfoContext
+  animationRef.current = undefined;
 
-const initialState = {
-  width: 0,
-  height: 0,
-  '--vw': '0px',
-  '--vh': '0px',
-  breakpoints: undefined,
-  eventsFired: 0,
-  animationScheduled: false,
+  const {
+    eventsFired: prevEventsFired,
+  } = state;
+
+  const {
+    documentElement: {
+      style,
+      clientWidth,
+      clientHeight,
+    },
+  } = document;
+
+  const {
+    innerWidth: windowWidth,
+    innerHeight: windowHeight,
+  } = window;
+
+  const viewportWidth = `${clientWidth / 100}px`;
+  const viewportHeight = `${clientHeight / 100}px`;
+
+  const newState = {
+    width: windowWidth,
+    height: windowHeight,
+    '--vw': viewportWidth,
+    '--vh': viewportHeight,
+    breakpoints: Object.keys(breakpoints).reduce((matchMediaBreakpoints, key) => ({
+      ...matchMediaBreakpoints,
+      [key]: window.matchMedia(breakpoints[key]).matches,
+    }), {}),
+    eventsFired: prevEventsFired + 1,
+  };
+
+  // This method is a cross-browser patch to achieve above-the-fold, fullscreen mobile experiences.
+  // The technique accounts for the collapsing bottom toolbar of some mobile browsers which are out of normal flow.
+  // It provides an alternate to the "vw" and "vh" CSS units by generating respective CSS variables.
+  // It specifically reads the size of documentElement since its height does not include the toolbar.
+  style.setProperty('--vw', viewportWidth);
+  style.setProperty('--vh', viewportHeight);
+
+  return newState;
 };
 
-const reducer:Reducer = (state, payload) => ({
-  ...state,
-  ...payload,
-});
+const WindowInfoProvider: React.FC<{
+  breakpoints: Breakpoints
+}> = (props) => {
+  const {
+    breakpoints,
+    children,
+  } = props;
 
-const WindowInfoProvider: React.FC<Props> = (props) => {
-  const { breakpoints, children } = props;
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const animationRef = useRef<number>(null);
 
-  const generateMediaQueries = useCallback(() => Object.keys(breakpoints).reduce((matchMediaBreakpoints, key) => ({
-    ...matchMediaBreakpoints,
-    [key]: window.matchMedia(breakpoints[key]).matches,
-  }), {}), [breakpoints]);
-
-  const updateWindowInfo = useCallback((): void => {
-    const { eventsFired: prevEventsFired } = state;
-
-    const {
-      documentElement: {
-        style,
-        clientWidth,
-        clientHeight,
-      },
-    } = document;
-
-    const {
-      innerWidth: windowWidth,
-      innerHeight: windowHeight,
-    } = window;
-
-    const viewportWidth = `${clientWidth / 100}px`;
-    const viewportHeight = `${clientHeight / 100}px`;
-
-    dispatch({
-      width: windowWidth,
-      height: windowHeight,
-      '--vw': viewportWidth,
-      '--vh': viewportHeight,
-      breakpoints: { ...generateMediaQueries() },
-      eventsFired: prevEventsFired + 1,
-      animationScheduled: false,
-    });
-
-    // This method is a cross-browser patch to achieve above-the-fold, fullscreen mobile experiences.
-    // The technique accounts for the collapsing bottom toolbar of some mobile browsers which are out of normal flow.
-    // It provides an alternate to the "vw" and "vh" CSS units by generating respective CSS variables.
-    // It specifically reads the size of documentElement since its height does not include the toolbar.
-    style.setProperty('--vw', viewportWidth);
-    style.setProperty('--vh', viewportHeight);
-  }, [generateMediaQueries, state]);
+  const [state, dispatch] = useReducer(reducer, {
+    width: undefined,
+    height: undefined,
+    '--vw': '',
+    '--vh': '',
+    breakpoints: undefined,
+    eventsFired: 0,
+  });
 
   const requestAnimation = useCallback((): void => {
-    const { animationScheduled } = state;
-    if (!animationScheduled) {
-      dispatch({
-        animationScheduled: false,
-      });
-      requestAnimationFrame(updateWindowInfo);
-    }
-  }, [state, updateWindowInfo]);
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    animationRef.current = requestAnimationFrame(
+      () => dispatch({
+        breakpoints,
+        animationRef,
+      }),
+    );
+  }, [breakpoints]);
 
-  const updateWindowInfoWithTimeout = useCallback((): void => {
+  const requestThrottledAnimation = useCallback((): void => {
     setTimeout(() => {
       requestAnimation();
     }, 500);
@@ -87,25 +95,42 @@ const WindowInfoProvider: React.FC<Props> = (props) => {
 
   useEffect(() => {
     window.addEventListener('resize', requestAnimation);
-    window.addEventListener('orientationchange', updateWindowInfoWithTimeout);
+    window.addEventListener('orientationchange', requestThrottledAnimation);
 
     return () => {
       window.removeEventListener('resize', requestAnimation);
-      window.removeEventListener('orientationchange', updateWindowInfoWithTimeout);
+      window.removeEventListener('orientationchange', requestThrottledAnimation);
     };
-  }, [requestAnimation, updateWindowInfoWithTimeout]);
+  }, [
+    requestAnimation,
+    requestThrottledAnimation,
+  ]);
+
+  // use this effect to test rAF debounce by requesting animation every 1ms, for a total 120ms
+  // results: ~23 requests will be canceled, ~17 requests will be canceled, and only ~8 will truly dispatch
+  // useEffect(() => {
+  //   const firstID = setInterval(requestAnimation, 1);
+  //   setInterval(() => clearInterval(firstID), 120);
+  // }, [requestAnimation]);
 
   useEffect(() => {
     if (state.eventsFired === 0) {
-      updateWindowInfo();
+      dispatch({
+        breakpoints,
+        animationRef,
+      });
     }
-  }, [updateWindowInfo, state]);
-
-  const windowInfo = { ...state };
-  delete windowInfo.animationScheduled;
+  }, [
+    breakpoints,
+    state,
+  ]);
 
   return (
-    <WindowInfoContext.Provider value={{ ...windowInfo }}>
+    <WindowInfoContext.Provider
+      value={{
+        ...state,
+      }}
+    >
       {children && children}
     </WindowInfoContext.Provider>
   );
