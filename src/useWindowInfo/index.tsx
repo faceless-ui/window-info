@@ -1,6 +1,5 @@
 import { useContext } from 'react';
-import WindowInfoContext from '../WindowInfoContext';
-import { IWindowInfoContext } from '../WindowInfoContext/types';
+import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoContext';
 
 const useWindowInfo = (): IWindowInfoContext => useContext(WindowInfoContext);
 

@@ -1,5 +1,14 @@
 import { createContext } from 'react';
-import { IWindowInfoContext } from './types';
+import { Breakpoints } from '../types';
+
+export interface IWindowInfoContext {
+  width: number,
+  height: number,
+  '--vw': string,
+  '--vh': string,
+  breakpoints: Breakpoints,
+  eventsFired: number,
+}
 
 const WindowInfoContext = createContext<IWindowInfoContext>({} as IWindowInfoContext);
 
