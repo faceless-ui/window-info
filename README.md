@@ -4,7 +4,7 @@
 
 # React Window Info
 
-Read the docs [here](faceless-ui.com/docs/window-info)
+Read the full documentation [here](https://faceless-ui.com/docs/window-info).
 
 ## Quick Start
 
