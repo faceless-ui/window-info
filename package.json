@@ -3,6 +3,7 @@
   "version": "2.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "homepage:": "https://faceless-ui/docs/window-info",
   "repository": "git@github.com:faceless-ui/window-info.git",
   "description": "React utility for subscribing to window events",
   "author": "<dev@trbl.design>",
