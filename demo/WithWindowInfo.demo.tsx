@@ -2,11 +2,9 @@ import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bun
 import { IWindowInfoContext } from '../src/WindowInfoContext';
 import LogProps from './LogProps';
 
-type Props = {
+const WithWindowInfo: React.FC<{
   windowInfo: IWindowInfoContext
-}
-
-const WithWindowInfo: React.FC<Props> = (props) => {
+}> = (props) => {
   const { windowInfo } = props;
   return LogProps(windowInfo);
 };

@@ -2,19 +2,27 @@ import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import { Breakpoints } from '../types';
 import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoContext';
 
+type AnimationRef = React.MutableRefObject<number | null>;
+
+type ReducerAction = {
+  type: 'UPDATE'
+  payload: Partial<IWindowInfoContext> & {
+    animationRef: AnimationRef
+  }
+}
+
 const reducer = (
   state: IWindowInfoContext,
-  payload: {
-    breakpoints: Breakpoints,
-    animationRef: React.MutableRefObject<number>
-  },
+  action: ReducerAction
 ): IWindowInfoContext => {
   const {
-    breakpoints,
-    animationRef,
-  } = payload;
+    payload: {
+      breakpoints,
+      animationRef,
+    }
+  } = action;
 
-  animationRef.current = undefined;
+  animationRef.current = null;
 
   const {
     eventsFired: prevEventsFired,
@@ -36,15 +44,17 @@ const reducer = (
   const viewportWidth = `${clientWidth / 100}px`;
   const viewportHeight = `${clientHeight / 100}px`;
 
+  const watchedBreakpoints = breakpoints ? Object.keys(breakpoints).reduce((matchMediaBreakpoints, key) => ({
+    ...matchMediaBreakpoints,
+    [key]: window.matchMedia(breakpoints[key]).matches,
+  }), {}) : undefined;
+
   const newState = {
     width: windowWidth,
     height: windowHeight,
     '--vw': viewportWidth,
     '--vh': viewportHeight,
-    breakpoints: Object.keys(breakpoints).reduce((matchMediaBreakpoints, key) => ({
-      ...matchMediaBreakpoints,
-      [key]: window.matchMedia(breakpoints[key]).matches,
-    }), {}),
+    breakpoints: watchedBreakpoints,
     eventsFired: prevEventsFired + 1,
   };
 
@@ -60,29 +70,33 @@ const reducer = (
 
 const WindowInfoProvider: React.FC<{
   breakpoints: Breakpoints
+  children?: React.ReactNode
 }> = (props) => {
   const {
     breakpoints,
     children,
   } = props;
 
-  const animationRef = useRef<number>(null);
+  const animationRef = useRef<number | null>(null);
 
   const [state, dispatch] = useReducer(reducer, {
     width: undefined,
     height: undefined,
     '--vw': '',
     '--vh': '',
-    breakpoints: undefined,
+    breakpoints,
     eventsFired: 0,
-  });
+  } as IWindowInfoContext);
 
   const requestAnimation = useCallback((): void => {
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
     animationRef.current = requestAnimationFrame(
       () => dispatch({
-        breakpoints,
-        animationRef,
+        type: 'UPDATE',
+        payload: {
+          breakpoints,
+          animationRef,
+        }
       }),
     );
   }, [breakpoints]);
@@ -107,7 +121,7 @@ const WindowInfoProvider: React.FC<{
   ]);
 
   // use this effect to test rAF debounce by requesting animation every 1ms, for a total 120ms
-  // results: ~23 requests will be canceled, ~17 requests will be canceled, and only ~8 will truly dispatch
+  // results: ~23 requests will be cancelled, ~17 requests will be cancelled, and only ~8 will truly dispatch
   // useEffect(() => {
   //   const firstID = setInterval(requestAnimation, 1);
   //   setInterval(() => clearInterval(firstID), 120);
@@ -116,8 +130,11 @@ const WindowInfoProvider: React.FC<{
   useEffect(() => {
     if (state.eventsFired === 0) {
       dispatch({
-        breakpoints,
-        animationRef,
+        type: 'UPDATE',
+        payload: {
+          breakpoints,
+          animationRef,
+        }
       });
     }
   }, [

@@ -2,11 +2,11 @@ import { createContext } from 'react';
 import { Breakpoints } from '../types';
 
 export interface IWindowInfoContext {
-  width: number,
-  height: number,
+  width?: number,
+  height?: number,
   '--vw': string,
   '--vh': string,
-  breakpoints: Breakpoints,
+  breakpoints?: Breakpoints,
   eventsFired: number,
 }
 

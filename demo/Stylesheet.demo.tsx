@@ -17,7 +17,7 @@ const StylesheetDemo: React.FC<Props> = (props) => {
     <Fragment>
       <style
         dangerouslySetInnerHTML={{
-          __html: hasBreakpoints && breakpointsKeys.map((key) => `@media${breakpoints[key]} { #${key} { color: green; } }`).join(' '),
+          __html: hasBreakpoints ? breakpointsKeys.map((key) => `@media${breakpoints[key]} { #${key} { color: green; } }`).join(' ') : '',
         }}
       />
       <code>
