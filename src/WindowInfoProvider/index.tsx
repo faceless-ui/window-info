@@ -6,7 +6,8 @@ type AnimationRef = React.MutableRefObject<number | null>;
 
 type ReducerAction = {
   type: 'UPDATE'
-  payload: Partial<IWindowInfoContext> & {
+  payload: {
+    breakpoints: Breakpoints
     animationRef: AnimationRef
   }
 }
@@ -84,7 +85,7 @@ const WindowInfoProvider: React.FC<{
     height: undefined,
     '--vw': '',
     '--vh': '',
-    breakpoints,
+    breakpoints: undefined,
     eventsFired: 0,
   } as IWindowInfoContext);
 

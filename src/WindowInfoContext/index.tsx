@@ -1,12 +1,15 @@
 import { createContext } from 'react';
-import { Breakpoints } from '../types';
+
+export type WatchedBreakpoints = {
+  [key: string]: boolean
+}
 
 export interface IWindowInfoContext {
   width?: number,
   height?: number,
   '--vw': string,
   '--vh': string,
-  breakpoints?: Breakpoints,
+  breakpoints?: WatchedBreakpoints,
   eventsFired: number,
 }
 
