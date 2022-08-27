@@ -1,6 +1,5 @@
 [![NPM](https://img.shields.io/npm/v/@faceless-ui/window-info)](https://www.npmjs.com/@faceless-ui/window-info)
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@faceless-ui/window-info?label=zipped)
-[![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
 # React Window Info
 
