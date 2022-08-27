@@ -1,8 +1,9 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
   ],
   env: {
@@ -11,45 +12,48 @@ module.exports = {
     jest: true,
   },
   plugins: [
-    "jest",
-    "jest-dom",
+    'react',
+    "react-hooks",
+    'jest',
+    'jest-dom',
   ],
-  "rules": {
+  rules: {
     'react/prop-types': 'off',
-    "react/jsx-max-props-per-line": [
+    'react/jsx-max-props-per-line': [
       1,
       {
-        "maximum": 1
-      }
+        maximum: 1,
+      },
     ],
-    "react/jsx-first-prop-new-line": [
+    'react/jsx-first-prop-new-line': [
       1,
-      "multiline"
+      'multiline',
     ],
-    "react/jsx-closing-bracket-location": [
+    'react/jsx-closing-bracket-location': [
       1,
-      "tag-aligned"
+      'tag-aligned',
     ],
-    "object-curly-newline": [
-      1,
-      {
-        "multiline": true,
-        "consistent": true
-      }
-    ],
-    "object-property-newline": [
+    'object-curly-newline': [
       1,
       {
-        "allowAllPropertiesOnSameLine": false
-      }
+        multiline: true,
+        consistent: true,
+      },
     ],
-    "no-unused-vars": [
-      1
-    ]
+    'object-property-newline': [
+      1,
+      {
+        allowAllPropertiesOnSameLine: false,
+      },
+    ],
+    'no-unused-vars': [
+      1,
+    ],
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   settings: {
-    "react": {
-      "version": "detect"
+    react: {
+      version: 'detect',
     },
     'import/resolver': {
       node: {
