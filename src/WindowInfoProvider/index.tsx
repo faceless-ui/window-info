@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
-import { Breakpoints } from '../types';
 import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoProvider/context';
 
 type AnimationRef = React.MutableRefObject<number | null>;
@@ -69,10 +68,16 @@ const reducer = (
   return newState;
 };
 
-const WindowInfoProvider: React.FC<{
+export type Breakpoints = {
+  [key: string]: string
+}
+
+export type WindowInfoProviderProps = {
   breakpoints: Breakpoints
   children?: React.ReactNode
-}> = (props) => {
+}
+
+const WindowInfoProvider: React.FC<WindowInfoProviderProps> = (props) => {
   const {
     breakpoints,
     children,
