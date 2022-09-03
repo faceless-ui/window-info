@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import { Breakpoints } from '../types';
-import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoContext';
+import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoProvider/context';
 
 type AnimationRef = React.MutableRefObject<number | null>;
 

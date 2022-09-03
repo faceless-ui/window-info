@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 import useWindowInfo from '../useWindowInfo';
-import { IWindowInfoContext } from '../WindowInfoContext';
+import { IWindowInfoContext } from '../WindowInfoProvider/context';
 
 export type ChildFunction = (context: IWindowInfoContext) => React.ReactNode; // eslint-disable-line no-unused-vars
 
-const WindowInfo: React.FC<{
+export type WindowInfoProps = {
   children?: React.ReactNode | ChildFunction
-}> = (props) => {
+};
+
+const WindowInfo: React.FC<WindowInfoProps> = (props) => {
   const { children } = props;
   const windowInfo = useWindowInfo();
 

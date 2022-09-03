@@ -5,7 +5,7 @@
   "types": "dist/index.d.ts",
   "homepage:": "https://facelessui.com/docs/window-info",
   "repository": "git@github.com:faceless-ui/window-info.git",
-  "description": "A React utility library for subscribing to window events",
+  "description": "A React library for subscribing to window events",
   "author": {
     "email": "jacobsfletch@gmail.com",
     "name": "Jacob Fletcher",

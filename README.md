@@ -5,9 +5,7 @@
 
 Read the full documentation [here](https://facelessui.com/docs/window-info).
 
-## Quick Start
-
-### Installation
+## Installation
 
 ```bash
 $ npm i @faceless-ui/window-info
