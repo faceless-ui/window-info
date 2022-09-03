@@ -48,7 +48,7 @@ const reducer = (
   const watchedBreakpoints = breakpoints ? Object.keys(breakpoints).reduce((matchMediaBreakpoints, key) => ({
     ...matchMediaBreakpoints,
     [key]: window.matchMedia(breakpoints[key]).matches,
-  }), {}) : undefined;
+  }), {}) : {};
 
   const newState = {
     width: windowWidth,
@@ -85,7 +85,7 @@ const WindowInfoProvider: React.FC<{
     height: undefined,
     '--vw': '',
     '--vh': '',
-    breakpoints: undefined,
+    breakpoints: {},
     eventsFired: 0,
   } as IWindowInfoContext);
 

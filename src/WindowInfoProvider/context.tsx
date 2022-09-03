@@ -9,7 +9,7 @@ export interface IWindowInfoContext {
   height?: number,
   '--vw': string,
   '--vh': string,
-  breakpoints?: WatchedBreakpoints,
+  breakpoints: WatchedBreakpoints,
   eventsFired: number,
 }
 
