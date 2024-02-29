@@ -1,3 +1,4 @@
+'use client'
 import { useContext } from 'react';
 import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoProvider/context';
 

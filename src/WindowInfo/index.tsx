@@ -1,3 +1,4 @@
+'use client'
 import React, { Fragment } from 'react';
 import useWindowInfo from '../useWindowInfo';
 import { IWindowInfoContext } from '../WindowInfoProvider/context';
