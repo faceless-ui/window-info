@@ -1,3 +1,4 @@
+'use client'
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoProvider/context';
 
