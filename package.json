@@ -1,6 +1,6 @@
 {
   "name": "@faceless-ui/window-info",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage:": "https://facelessui.com/docs/window-info",
