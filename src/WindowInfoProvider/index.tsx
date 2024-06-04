@@ -1,6 +1,6 @@
 'use client'
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
-import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoProvider/context';
+import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoProvider/context.js';
 
 type AnimationRef = React.MutableRefObject<number | null>;
 

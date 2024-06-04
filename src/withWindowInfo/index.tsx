@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import useWindowInfo from '../useWindowInfo';
+import useWindowInfo from '../useWindowInfo/index.js';
 
 const withWindowInfo = <P extends Record<string, unknown>>(
   PassedComponent: React.ComponentType<P>,
