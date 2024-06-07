@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  WindowInfoProvider,
-  // WindowInfo
-} from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { WindowInfoProvider } from '@faceless-ui/window-info';
 import StylesheetDemo from './Stylesheet.demo';
 // import WithWindowInfo from './WithWindowInfo.demo';
 import UseWindowInfo from './UseWindowInfo.demo';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IWindowInfoContext } from '../src/WindowInfoProvider/context';
+import { IWindowInfoContext } from '@faceless-ui/window-info';
 
 const filterObject = () => {
   const seen = new WeakSet();
