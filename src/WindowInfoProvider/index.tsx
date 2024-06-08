@@ -1,6 +1,6 @@
 'use client'
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
-import WindowInfoContext, { IWindowInfoContext } from '../WindowInfoProvider/context.js';
+import { WindowInfoContext, type IWindowInfoContext } from '../WindowInfoProvider/context.js';
 
 type AnimationRef = React.MutableRefObject<number | null>;
 
@@ -78,7 +78,7 @@ export type WindowInfoProviderProps = {
   children?: React.ReactNode
 }
 
-const WindowInfoProvider: React.FC<WindowInfoProviderProps> = (props) => {
+export const WindowInfoProvider: React.FC<WindowInfoProviderProps> = (props) => {
   const {
     breakpoints,
     children,
@@ -159,5 +159,3 @@ const WindowInfoProvider: React.FC<WindowInfoProviderProps> = (props) => {
     </WindowInfoContext.Provider>
   );
 };
-
-export default WindowInfoProvider;
