@@ -1,8 +1,8 @@
 import React from 'react';
 import { WindowInfoProvider } from '@faceless-ui/window-info';
-import StylesheetDemo from './Stylesheet.demo';
-// import WithWindowInfo from './WithWindowInfo.demo';
-import UseWindowInfo from './UseWindowInfo.demo';
+import StylesheetDemo from './Stylesheet.demo.js';
+// import WithWindowInfo from './WithWindowInfo.demo.js';
+import UseWindowInfo from './UseWindowInfo.demo.js';
 // import LogProps from './LogProps';
 
 const breakpoints = {

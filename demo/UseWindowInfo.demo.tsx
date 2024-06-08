@@ -1,5 +1,5 @@
 import { useWindowInfo } from '@faceless-ui/window-info';
-import LogProps from './LogProps';
+import LogProps from './LogProps.js';
 
 const UseWindowInfo: React.FC = () => {
   const windowInfo = useWindowInfo();
