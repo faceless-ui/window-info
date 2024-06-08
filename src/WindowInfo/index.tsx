@@ -1,7 +1,7 @@
 'use client'
 import React, { Fragment } from 'react';
-import useWindowInfo from '../useWindowInfo';
-import { IWindowInfoContext } from '../WindowInfoProvider/context';
+import useWindowInfo from '../useWindowInfo/index.js';
+import { IWindowInfoContext } from '../WindowInfoProvider/context.js';
 
 export type ChildFunction = (context: IWindowInfoContext) => React.ReactNode; // eslint-disable-line no-unused-vars
 

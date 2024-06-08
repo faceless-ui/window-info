@@ -1,5 +1,5 @@
-import { withWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import { IWindowInfoContext } from '../src/WindowInfoProvider/context';
+import { withWindowInfo } from '@faceless-ui/window-info';
+import type { IWindowInfoContext } from '../src/types';
 import LogProps from './LogProps';
 
 const WithWindowInfo: React.FC<{

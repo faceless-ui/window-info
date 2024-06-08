@@ -1,4 +1,4 @@
-import { useWindowInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { useWindowInfo } from '@faceless-ui/window-info';
 import LogProps from './LogProps';
 
 const UseWindowInfo: React.FC = () => {

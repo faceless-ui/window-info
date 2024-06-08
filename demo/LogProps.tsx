@@ -1,5 +1,5 @@
 import React from 'react';
-import { IWindowInfoContext } from '../src/WindowInfoProvider/context';
+import { IWindowInfoContext } from '../src/types';
 
 const filterObject = () => {
   const seen = new WeakSet();
