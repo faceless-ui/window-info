@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import type { Breakpoints } from '../src/types';
+import type { Breakpoints } from '../src/types.js';
 
 type Props = {
   breakpoints: Breakpoints

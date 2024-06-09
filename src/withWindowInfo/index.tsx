@@ -1,8 +1,8 @@
 'use client'
 import React from 'react';
-import useWindowInfo from '../useWindowInfo/index.js';
+import { useWindowInfo } from '../useWindowInfo/index.js';
 
-const withWindowInfo = <P extends Record<string, unknown>>(
+export const withWindowInfo = <P extends Record<string, unknown>>(
   PassedComponent: React.ComponentType<P>,
 ): React.FC<P> => {
   const WindowInfoWrap: React.FC<P> = (props) => {
@@ -19,5 +19,3 @@ const withWindowInfo = <P extends Record<string, unknown>>(
   };
   return WindowInfoWrap;
 };
-
-export default withWindowInfo;

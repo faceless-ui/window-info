@@ -1,6 +1,6 @@
 import { withWindowInfo } from '@faceless-ui/window-info';
-import type { IWindowInfoContext } from '../src/types';
-import LogProps from './LogProps';
+import type { IWindowInfoContext } from '../src/types.js';
+import LogProps from './LogProps.js';
 
 const WithWindowInfo: React.FC<{
   windowInfo: IWindowInfoContext

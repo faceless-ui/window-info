@@ -14,6 +14,4 @@ export interface IWindowInfoContext {
   eventsFired: number,
 }
 
-const WindowInfoContext = createContext<IWindowInfoContext>({} as IWindowInfoContext);
-
-export default WindowInfoContext;
+export const WindowInfoContext = createContext<IWindowInfoContext>({} as IWindowInfoContext);

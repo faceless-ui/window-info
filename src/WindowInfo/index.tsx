@@ -1,6 +1,6 @@
 'use client'
 import React, { Fragment } from 'react';
-import useWindowInfo from '../useWindowInfo/index.js';
+import { useWindowInfo } from '../useWindowInfo/index.js';
 import { IWindowInfoContext } from '../WindowInfoProvider/context.js';
 
 export type ChildFunction = (context: IWindowInfoContext) => React.ReactNode; // eslint-disable-line no-unused-vars
@@ -9,7 +9,7 @@ export type WindowInfoProps = {
   children?: React.ReactNode | ChildFunction
 };
 
-const WindowInfo: React.FC<WindowInfoProps> = (props) => {
+export const WindowInfo: React.FC<WindowInfoProps> = (props) => {
   const { children } = props;
   const windowInfo = useWindowInfo();
 
@@ -30,5 +30,3 @@ const WindowInfo: React.FC<WindowInfoProps> = (props) => {
   }
   return null;
 };
-
-export default WindowInfo;
