@@ -1,6 +1,7 @@
 {
   "name": "@faceless-ui/window-info",
   "version": "3.0.0-beta.0",
+  "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
